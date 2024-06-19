@@ -1,0 +1,94 @@
+@import "../../../styles/variables.scss";
+
+.category-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 10px;
+  border-top: 1px solid $light-grey-color;
+  max-width: 1440px;
+
+  @media (min-width: 1024px) {
+    margin: 20px auto;
+  }
+
+  &__balcony {
+    margin: 20px auto 30px;
+  }
+
+  &__balcony-title {
+    font-size: $size-m;
+    color: $primary-color;
+    text-transform: uppercase;
+
+    @media (min-width: 1024px) {
+      font-size: $size-l;
+    }
+
+    @media (min-width: 1440px) {
+      font-size: $size-xl;
+    }
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+
+    @media (min-width: 1440px) {
+      gap: 40px;
+    }
+  }
+
+  &__info {
+    width: calc(50% - 10px);
+    margin-bottom: 30px;
+
+    @media (min-width: 768px) {
+      width: calc(33% - 15px);
+    }
+
+    @media (min-width: 1024px) {
+      width: calc(25% - 15px);
+    }
+
+    @media (min-width: 1440px) {
+      width: calc(25% - 35px);
+    }
+  }
+
+  &__image {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 15px;
+  }
+
+  &__title {
+    font-size: $size-s;
+    color: $primary-color;
+    margin-bottom: 10px;
+
+    @media (min-width: 1024px) {
+      font-size: $size-s;
+    }
+
+    @media (min-width: 1440px) {
+      font-size: $size-m;
+    }
+  }
+
+  &__price {
+    color: $dark-grey-color;
+
+    @media (min-width: 1024px) {
+      font-size: $size-s;
+    }
+
+    @media (min-width: 1440px) {
+      font-size: $size-m;
+    }
+  }
+}
