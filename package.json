@@ -20,11 +20,15 @@
     "@types/node": "^16.18.35",
     "@types/react": "^18.2.11",
     "@types/react-dom": "^18.2.4",
+    "@types/react-slick": "^0.23.13",
+    "@types/slick-carousel": "^1.6.40",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.12.1",
     "react-scripts": "5.0.1",
+    "react-slick": "^0.30.2",
     "sass": "^1.63.3",
+    "slick-carousel": "^1.8.1",
     "web-vitals": "^2.1.4"
   },
   "eslintConfig": {
