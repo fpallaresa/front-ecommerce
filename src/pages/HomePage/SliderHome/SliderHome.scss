@@ -1,0 +1,96 @@
+@import "../../../styles/variables.scss";
+
+.feat-slider {
+  margin: 20px 10px 50px;
+  border-radius: 10px;
+
+  @media (min-width: 1024px) {
+    margin: 20px auto 60px;
+    max-width: 1440px;
+  }
+
+  &__link {
+    display: flex;
+    position: relative;
+  }
+
+  &__image {
+    z-index: 100;
+    width: 100%;
+    height: 75vh;
+    background-size: cover;
+    background-position: center;
+    background-image: url("../../../assets/dummy-large.png");
+    border-radius: 20px;
+  }
+
+  &__info{
+    position: absolute;
+    bottom: 60px;
+    left: 20px;
+    right: 20px;
+  }
+
+  &__category {
+    font-size: $size-xs;
+    color: $primary-color;
+    text-transform: uppercase;
+    margin-left: 20px;
+  }
+
+  &__title {
+    font-size: $size-l;
+    font-weight: 700;
+    color: $primary-color;
+    margin: 5px 20px 20px;
+  }
+
+  &__price {
+    font-size: $size-m;
+    color: $light-color;
+    margin-left: 20px;
+    background-color: $primary-color;
+    padding: 10px;
+    border-radius: 100px;
+  }
+}
+
+.slick-prev {
+  display: none !important;
+
+  @media (min-width: 1024px) {
+    display: inline-block !important;
+    left: 10px !important;
+    top: 300px !important;
+    z-index: 100;
+  }
+}
+
+.slick-next {
+  display: none !important;
+
+  @media (min-width: 1024px) {
+    display: inline-block !important;
+    right: 30px !important;
+    top: 300px !important;
+    z-index: 100;
+  }
+}
+
+.slick-prev:before,
+.slick-next:before {
+  color: $primary-color !important;
+
+  @media (min-width: 1024px) {
+    font-size: $size-xxxl !important;
+  }
+}
+
+.slick-dots li button:before {
+  color: $primary-color !important;
+  font-size: $size-xs !important;
+
+  @media (min-width: 1024px) {
+    font-size: $size-xxs !important;
+  }
+}
