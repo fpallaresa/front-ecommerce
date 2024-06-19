@@ -1,0 +1,33 @@
+@import "../../styles/variables.scss";
+
+.header{
+    background-color: $primary-color;
+    padding: 10px;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    @media (min-width: 1024px) {
+        height: 60px;
+    }
+
+    &__icon{
+        width: 30px;
+    }
+
+    &__logo {
+        width: 200px;
+
+        @media (min-width: 1024px) {
+            width: 240px;
+        }
+    }
+
+    &__icon-container{
+        width: 100px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+}
