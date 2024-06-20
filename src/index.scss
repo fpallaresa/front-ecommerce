@@ -1,3 +1,5 @@
+@import "./styles/variables.scss";
+
 html,
 body {
   margin: 0;
@@ -19,4 +21,36 @@ a {
 
 a:hover {
   opacity: 0.6;
+}
+
+button {
+  font-size: $size-xxs;
+  text-transform: uppercase;
+  background-color: $light-color;
+  border: 1px solid $light-grey-color;
+  border-radius: 6px;
+  padding: 4px;
+  cursor: pointer;
+  min-width: 30px;
+  min-height: 30px;
+
+  @media (min-width: 1024px) {
+    font-size: $size-xs;
+    padding: 8px;
+    min-width: 34px;
+    min-height: 34px;
+  }
+
+  &:disabled {
+    background-color: $light-color;
+    cursor:unset;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  &:hover {
+    opacity: 0.6;
+  }
 }

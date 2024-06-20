@@ -1,0 +1,30 @@
+@import "../../../styles/variables.scss";
+
+.category-paginator {
+  display: flex;
+  margin: 0 20px 50px;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+
+  @media (min-width: 1024px) {
+    gap: 14px;
+  }
+
+  &__page {
+
+    &--active {
+      border: none;
+      background-color: $light-color;
+      font-weight: 700;
+      color: $primary-color;
+      font-size: $size-xs;
+      cursor:unset;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+}
