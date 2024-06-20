@@ -1,0 +1,43 @@
+@import "../../styles/variables.scss";
+
+.dropdown {
+  &__background {
+    width: 100%;
+    background-color: $primary-color;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    opacity: 0.3;
+    z-index: 90;
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 40%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: $primary-color;
+    z-index: 100;
+    padding: 20px;
+    opacity: 1;
+  }
+
+  &__header {
+    margin-bottom: 40px;
+  }
+
+  &__close-icon {
+    width: 25px;
+  }
+  &__link {
+    text-transform: uppercase;
+    color: $light-color;
+    text-decoration: none;
+    font-size: $size-l;
+  }
+}
