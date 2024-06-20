@@ -1,5 +1,5 @@
 {
-  "name": "e-commerce front",
+  "name": "e-commerce-front",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -24,6 +24,7 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.12.1",
     "react-scripts": "5.0.1",
+    "router-dom": "^2.2.11",
     "sass": "^1.63.3",
     "web-vitals": "^2.1.4"
   },
