@@ -1,33 +1,74 @@
 @import "../../styles/variables.scss";
 
-.header{
-    background-color: $primary-color;
-    padding: 10px;
-    height: 50px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.header {
+  background-color: $primary-color;
+  padding: 10px 20px;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  @media (min-width: 1024px) {
+    height: 60px;
+  }
+
+  &__navigation {
+    display: none;
 
     @media (min-width: 1024px) {
-        height: 60px;
+      color: $light-color;
+      width: 300px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
+  }
 
-    &__icon{
-        width: 30px;
+  &__link {
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: $size-m ;
+    color: $light-color;
+  }
+
+  &__menu-container {
+    //   height: 300vh;
+    //   width: 200px;
+    //   margin-left: -10px;
+    //   cursor: pointer;
+    //   z-index: 0;
+    //   background-color: $primary-color;
+    //   transition-timing-function: ease;
+    //   transition-duration: 1s;
+
+    @media (min-width: 1024px) {
+      display: none;
     }
+  }
 
-    &__logo {
-        width: 200px;
+  &__icon-menu {
+    width: 25px;
+    z-index: 1;
+    cursor: pointer;
+  }
+  &__icon {
+    width: 25px;
+    cursor: pointer;
+  }
 
-        @media (min-width: 1024px) {
-            width: 240px;
-        }
+  &__logo {
+    width: 200px;
+
+    @media (min-width: 1024px) {
+      width: 240px;
     }
+  }
 
-    &__icon-container{
-        width: 100px;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-    }
+  &__icon-container {
+    width: 55px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: baseline;
+    gap: 15px;
+  }
 }

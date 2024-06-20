@@ -1,17 +1,33 @@
 import "../Header/Header.scss";
-import Menu from "../../assets/image.png";
-import Loup from "../../assets/lupa.png";
-import Bag from "../../assets/bolsa-de-la-compra.png";
+import MenuIcon from "../../assets/menu.svg";
 import logo from "../../assets/logo.svg";
+import SearchIcon from "../../assets/search.svg";
+import ShoppingIcon from "../../assets/bag.svg";
+import { NavLink } from "react-router-dom";
 
 const Header = (): JSX.Element => {
   return (
     <div className="header">
-      <img src={Menu} className="header__icon" />
-      <img src={logo} className="header__logo" />
+      <div className="header__menu-container">
+        <img src={MenuIcon} className="header__icon-menu" />
+      </div>
+      <NavLink className="header__link" to="/" title="">
+        <img src={logo} className="header__logo" />
+      </NavLink>
+      <div className="header__navigation">
+        <NavLink className="header__link" to="#" title="">
+          HOMBRE
+        </NavLink>
+        <NavLink className="header__link" to="#" title="">
+          MUJER
+        </NavLink>
+        <NavLink className="header__link" to="#" title="">
+          INFANTIL
+        </NavLink>
+      </div>
       <div className="header__icon-container">
-        <img src={Loup} className="header__icon"></img>
-        <img src={Bag} className="header__icon"></img>
+        <img src={SearchIcon} className="header__icon"></img>
+        <img src={ShoppingIcon} className="header__icon"></img>
       </div>
     </div>
   );
