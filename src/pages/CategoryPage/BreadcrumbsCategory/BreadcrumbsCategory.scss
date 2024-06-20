@@ -1,0 +1,43 @@
+@import "../../../styles/variables.scss";
+
+.category-page {
+
+    &__breadcrumbs {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        margin: 20px 20px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid $light-grey-color;
+        max-width: 1440px;
+
+        @media (min-width: 1440px) {
+          margin: 20px auto;
+        }
+    }
+
+    &__breadcrumbs-title {
+        font-size: $size-m;
+        color: $primary-color;
+        text-transform: uppercase;
+
+        &--link {
+            font-weight: 300;
+        }
+    
+        @media (min-width: 1024px) {
+          font-size: $size-l;
+        }
+    
+        @media (min-width: 1440px) {
+          font-size: $size-xl;
+        }
+      }
+
+      &__breadcrumbs-separator {
+        width: 75%;
+      }
+}
+
+
