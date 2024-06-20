@@ -10,7 +10,6 @@ interface DropdownProps {
 }
 
 const Dropdown: React.FC<DropdownProps> = ({ categories, onClose }): JSX.Element => {
-
   return (
     <div className="dropdown">
       <div className="dropdown__background"></div>
