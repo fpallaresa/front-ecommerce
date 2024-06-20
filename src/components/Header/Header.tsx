@@ -11,7 +11,9 @@ const Header = (): JSX.Element => {
       <div className="header__menu-container">
         <img src={MenuIcon} className="header__icon-menu" />
       </div>
-      <img src={logo} className="header__logo" />
+      <NavLink className="header__link" to="/" title="">
+        <img src={logo} className="header__logo" />
+      </NavLink>
       <div className="header__navigation">
         <NavLink className="header__link" to="#" title="">
           HOMBRE
