@@ -1,0 +1,87 @@
+@import "../../../styles/variables.scss";
+
+.category-page-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 10px;
+  max-width: 1440px;
+
+  @media (min-width: 1024px) {
+    margin: 20px auto;
+  }
+
+  &__utils {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 96%;
+    margin: 00 auto 20px;
+  }
+
+  &__filters-image {
+    margin-right: 5px;
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+
+    @media (min-width: 1440px) {
+      gap: 40px;
+    }
+  }
+
+  &__info {
+    width: calc(50% - 10px);
+    margin-bottom: 30px;
+
+    @media (min-width: 768px) {
+      width: calc(33% - 15px);
+    }
+
+    @media (min-width: 1024px) {
+      width: calc(25% - 15px);
+    }
+
+    @media (min-width: 1440px) {
+      width: calc(25% - 35px);
+    }
+  }
+
+  &__image {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 15px;
+  }
+
+  &__title {
+    font-size: $size-s;
+    color: $primary-color;
+    margin-bottom: 10px;
+
+    @media (min-width: 1024px) {
+      font-size: $size-s;
+    }
+
+    @media (min-width: 1440px) {
+      font-size: $size-m;
+    }
+  }
+
+  &__price {
+    color: $dark-grey-color;
+
+    @media (min-width: 1024px) {
+      font-size: $size-s;
+    }
+
+    @media (min-width: 1440px) {
+      font-size: $size-m;
+    }
+  }
+}
