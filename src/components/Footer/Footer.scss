@@ -1,0 +1,9 @@
+@import "../../styles/variables.scss";
+
+.footer{
+    margin: 20px;
+    border-top: 1px solid $dark-grey-color;
+}
+.footer p{
+    color: $dark-grey-color;
+}
