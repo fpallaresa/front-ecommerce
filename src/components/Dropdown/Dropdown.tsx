@@ -2,12 +2,15 @@ import React from "react";
 import "../Dropdown/Dropdown.scss";
 import close from "../../assets/close.svg";
 import { NavLink } from "react-router-dom";
+import { Category } from "../../models/Category";
 
 interface DropdownProps {
+  categories: Category[];
   onClose: () => void;
 }
 
-const Dropdown: React.FC<DropdownProps> = ({ onClose }): JSX.Element => {
+const Dropdown: React.FC<DropdownProps> = ({ categories, onClose }): JSX.Element => {
+
   return (
     <div className="dropdown">
       <div className="dropdown__background"></div>
@@ -15,15 +18,11 @@ const Dropdown: React.FC<DropdownProps> = ({ onClose }): JSX.Element => {
         <div className="dropdown__header">
           <img src={close} className="dropdown__close-icon" alt="Close" onClick={onClose} />
         </div>
-        <NavLink className="dropdown__link" to="#" title="">
-          HOMBRE
-        </NavLink>
-        <NavLink className="dropdown__link" to="#" title="">
-          MUJER
-        </NavLink>
-        <NavLink className="dropdown__link" to="#" title="">
-          INFANTIL
-        </NavLink>
+        {categories.map((category) => (
+          <NavLink key={category._id} className="header__link" to={category.name.es} title="">
+            {category.name.es}
+          </NavLink>
+        ))}
       </div>
     </div>
   );
