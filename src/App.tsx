@@ -2,6 +2,7 @@ import { HashRouter, Route, Routes } from "react-router-dom";
 import "./App.scss";
 import HomePage from "./pages/HomePage/HomePage";
 import CategoryPage from "./pages/CategoryPage/CategoryPage";
+import Footer from "./components/Footer/Footer";
 
 const App = (): JSX.Element => {
   return (
@@ -12,6 +13,7 @@ const App = (): JSX.Element => {
           <Route path="/:category" element={<CategoryPage></CategoryPage>}></Route>
         </Routes>
       </HashRouter>
+      <Footer></Footer>
     </div>
   );
 };
