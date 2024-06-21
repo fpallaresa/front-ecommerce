@@ -4,13 +4,14 @@ import { useParams } from "react-router-dom";
 import CategoryPageGrid from "./CategoryPageGrid/CategoryPageGrid";
 import BreadcrumbsCategory from "./BreadcrumbsCategory/BreadcrumbsCategory";
 import CategoryPaginator from "./CategoryPaginator/CategoryPaginator";
+import { Product } from "../../models/Product";
 
 const CategoryPage = (): JSX.Element => {
   const { categoryName } = useParams<{ categoryName: string; }>();
   const [categoryId, setCategoryId] = useState<string | null>(null);
   const API_URL_CATEGORY = `${process.env.REACT_APP_API_URL as string}/categorie`;
   const [categoryData, setCategoryData] = useState<any>(null);
-  const [categoryProductData, setCategoryProductData] = useState<any>(null);
+  const [categoryProductData, setCategoryProductData] = useState<Product[]>([]);
 
   useEffect(() => {
     fetchCategoryId();

@@ -6,6 +6,7 @@ export interface ProductCreate {
 }
 
 export interface Product {
+  imageSquare: string;
   _id: string;
   title: Record<string, string>;
   description: Record<string, string>;
