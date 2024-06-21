@@ -18,7 +18,7 @@ const Dropdown: React.FC<DropdownProps> = ({ categories, onClose }): JSX.Element
           <img src={close} className="dropdown__close-icon" alt="Close" onClick={onClose} />
         </div>
         {categories.map((category) => (
-          <NavLink key={category._id} className="header__link" to={category.name.es} title="">
+          <NavLink key={category._id} className="header__link" to={category.name.es.toLowerCase()} title="">
             {category.name.es}
           </NavLink>
         ))}
