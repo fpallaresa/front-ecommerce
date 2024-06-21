@@ -2,8 +2,13 @@ import "./CategoryPageGrid.scss";
 import { NavLink } from "react-router-dom";
 import dummy from "../../../assets/dummy.png";
 import filter from "../../../assets/filter.svg";
+import { Category } from "../../../models/Category";
 
-const GridCategoryPage = (): JSX.Element => {
+interface BreadcrumbsCategoryProps {
+  categoryProductData: Category | null;
+}
+
+const GridCategoryPage = ({ categoryProductData }: BreadcrumbsCategoryProps): JSX.Element => {
   return (
     <div className="category-page-grid">
       <div className="category-page-grid__utils">
