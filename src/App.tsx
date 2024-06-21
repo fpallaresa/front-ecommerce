@@ -12,7 +12,7 @@ const App = (): JSX.Element => {
         <Header></Header>
         <Routes>
           <Route path="/" element={<HomePage></HomePage>}></Route>
-          <Route path="/:category" element={<CategoryPage></CategoryPage>}></Route>
+          <Route path="/:categoryName" element={<CategoryPage></CategoryPage>}></Route>
         </Routes>
       </HashRouter>
       <Footer></Footer>

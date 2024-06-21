@@ -9,5 +9,14 @@ export interface Category {
     es: string;
     en: string;
   };
+  parentCategory: ParentCategory | null;
+}
+
+interface ParentCategory {
+  _id: string;
+  name: {
+    es: string;
+    en: string;
+  };
   parentCategory: string | null;
 }
