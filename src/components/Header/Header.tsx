@@ -55,7 +55,7 @@ const Header = (): JSX.Element => {
         </NavLink>
         <div className="header__navigation">
           {categories.map((category) => (
-            <NavLink key={category._id} className="header__link" to={category.name.es} title="">
+            <NavLink key={category._id} className="header__link" to={category.name.es.toLowerCase()} title="">
               {category.name.es}
             </NavLink>
           ))}
