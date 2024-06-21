@@ -8,12 +8,11 @@ interface BreadcrumbsCategoryProps {
 }
 
 const BreadcrumbsCategory = ({ categoryData }: BreadcrumbsCategoryProps): JSX.Element => {
-
   const category = categoryData;
   const parentCategory = category?.parentCategory;
 
   const parentCategoryName = parentCategory && typeof parentCategory === "object" && "name" in parentCategory ? parentCategory.name?.es : null;
-  const parentCategoryUrl = parentCategoryName ? `/${parentCategoryName.toLowerCase() as string}` : "";
+  const parentCategoryUrl = parentCategoryName ? `/${parentCategoryName.toLowerCase()}` : "";
 
   return (
     <>
