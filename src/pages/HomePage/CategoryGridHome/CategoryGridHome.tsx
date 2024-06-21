@@ -1,6 +1,5 @@
 import "./CategoryGridHome.scss";
 import { NavLink } from "react-router-dom";
-import dummy from "../../../assets/dummy.png";
 import { useEffect, useState } from "react";
 import { Product } from "../../../models/Product";
 
@@ -45,7 +44,7 @@ const CategoryGridHome = (props: any): JSX.Element => {
         {products?.map((product, index) => (
           <div key={index} className="category-grid__info">
             <NavLink className="category-grid__link" to="#" title="">
-              <img className="category-grid__image" src={dummy} alt="" />
+              <img className="category-grid__image" src={`/product_images/${product?.imageSquare}`} alt="" />
             </NavLink>
             <NavLink className="category-grid__link" to="#" title="">
               <h4 className="category-grid__title">{product?.title?.es}</h4>
