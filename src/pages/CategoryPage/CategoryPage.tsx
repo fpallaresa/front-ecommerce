@@ -15,13 +15,13 @@ const CategoryPage = (): JSX.Element => {
 
   useEffect(() => {
     fetchCategoryId();
-  }, []);
+  }, [categoryName, categoryId]);
 
   useEffect(() => {
     if (categoryId) {
       fetchCategoryProduct(categoryId);
     }
-  }, [categoryId]);
+  }, [categoryName, categoryId]);
 
   const fetchCategoryId = (): void => {
     fetch(API_URL_CATEGORY, {
