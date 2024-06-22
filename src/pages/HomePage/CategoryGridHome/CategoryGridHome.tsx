@@ -36,7 +36,7 @@ const CategoryGridHome = (props: any): JSX.Element => {
   return (
     <div className="category-grid">
       <div className="category-grid__balcony">
-        <NavLink className="category-grid__link" to="#" title="">
+        <NavLink className="category-grid__link" to={props.category.name.es.toLowerCase()} title="">
           <h3 className="category-grid__balcony-title">{props.category.name.es}</h3>
         </NavLink>
       </div>
