@@ -35,7 +35,7 @@ const GridCategoryPage = ({ categoryProductData }: ProductCategoryProps): JSX.El
                 <span className="category-page-grid__price">{product?.price?.EUR}€</span>
               </div>
               <div className="category-page-grid__info-shopping">
-                <img className="category-page-grid__add-to-cart" src={addtocart} alt="Add to cart button"/>
+                <img className="category-page-grid__add-to-cart" src={addtocart} alt="Add to cart button" />
                 <p className="category-page-grid__add-to-cart-text"></p>
               </div>
             </div>

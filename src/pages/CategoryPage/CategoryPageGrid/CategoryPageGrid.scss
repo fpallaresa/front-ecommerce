@@ -97,7 +97,7 @@
     }
   }
 
-  &__info-shopping{
+  &__info-shopping {
     display: flex;
     flex-direction: row-reverse;
     gap: 10px;
@@ -113,7 +113,7 @@
     height: 22px;
     padding: 10px;
     cursor: pointer;
-    
+
     &:hover {
       opacity: 0.6;
     }
