@@ -27,7 +27,6 @@ const HomePage = (): JSX.Element => {
       })
       .then((responseParsed: Category[]) => {
         setCategories(responseParsed);
-        console.log(responseParsed);
       })
       .catch((error) => {
         console.error(error);

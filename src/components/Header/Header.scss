@@ -63,4 +63,34 @@
     align-items: baseline;
     gap: 15px;
   }
+
+  &__shopping {
+    width: 25px;
+    display: flex;
+    position: relative;
+    cursor: pointer;
+    
+    &:hover {
+      opacity: 0.6;
+    }
+  }
+
+  &__shopping-icon {
+    width: 20px;
+    cursor: pointer;
+  }
+
+  &__shopping-indicator {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    text-align: center;
+    color: $light-color;
+    background-color: $primary-color;
+    top: 14px;
+    left: 5px;
+    font-size: $size-xxs;
+    border-radius: 50%;
+    padding: 2px;
+  }
 }

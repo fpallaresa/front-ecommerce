@@ -2,6 +2,7 @@ import "./CategoryPageGrid.scss";
 import { NavLink } from "react-router-dom";
 import filter from "../../../assets/filter.svg";
 import dummy from "../../../assets/dummy.png";
+import addtocart from "../../../assets/addtocart.svg";
 import { Product } from "../../../models/Product";
 
 interface ProductCategoryProps {
@@ -22,14 +23,22 @@ const GridCategoryPage = ({ categoryProductData }: ProductCategoryProps): JSX.El
       </div>
       <div className="category-page-grid__container">
         {categoryProductData?.map((product, index) => (
-          <div className="category-page-grid__info" key={index}>
+          <div className="category-page-grid__info-container" key={index}>
             <NavLink className="category-page-grid__link" to="#" title="">
-              <img className="category-page-grid__image" src={(product?.imageSquare) ? `${APP_BASE_PATH}${product?.imageSquare}` : dummy} alt="" />
+              <img className="category-page-grid__image" src={product?.imageSquare ? `${APP_BASE_PATH}${product?.imageSquare}` : dummy} alt={product?.title?.es} />
             </NavLink>
-            <NavLink className="category-page-grid__link" to="#" title={product?.title?.es}>
-              <h4 className="category-page-grid__title">{product?.title?.es}</h4>
-            </NavLink>
-            <span className="category-page-grid__price">{product?.price?.EUR}€</span>
+            <div className="category-page-grid__info">
+              <div className="category-page-grid__info-product">
+                <NavLink className="category-page-grid__link" to="#" title={product?.title?.es}>
+                  <h4 className="category-page-grid__title">{product?.title?.es}</h4>
+                </NavLink>
+                <span className="category-page-grid__price">{product?.price?.EUR}€</span>
+              </div>
+              <div className="category-page-grid__info-shopping">
+                <img className="category-page-grid__add-to-cart" src={addtocart} alt="Add to cart button"/>
+                <p className="category-page-grid__add-to-cart-text"></p>
+              </div>
+            </div>
           </div>
         ))}
       </div>

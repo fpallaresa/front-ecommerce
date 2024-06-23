@@ -31,7 +31,7 @@ const Header = (): JSX.Element => {
         return await response.json();
       })
       .then((responseParsed: Category[]) => {
-        const mainCategories = responseParsed.filter(category => category.parentCategory === null);
+        const mainCategories = responseParsed.filter((category) => category.parentCategory === null);
         setCategories(mainCategories);
       })
       .catch((error) => {
@@ -61,8 +61,11 @@ const Header = (): JSX.Element => {
           ))}
         </div>
         <div className="header__icon-container">
-          <img src={SearchIcon} className="header__icon"></img>
-          <img src={ShoppingIcon} className="header__icon"></img>
+          <img src={SearchIcon} className="header__icon" />
+          <div className="header__shopping" >
+            <img src={ShoppingIcon} className="header__shopping-icon" />
+            <span className="header__shopping-indicator">83</span>
+          </div>
         </div>
       </div>
       {isMenuOpen && <Dropdown categories={categories} onClose={toogleMenu} />}
