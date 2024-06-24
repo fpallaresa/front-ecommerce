@@ -16,6 +16,7 @@ const GridCategoryPage = ({ categoryProductData }: ProductCategoryProps): JSX.El
     const cart: Product[] = JSON.parse(localStorage.getItem("cart") ?? "[]");
     cart.push(product);
     localStorage.setItem("cart", JSON.stringify(cart));
+    window.dispatchEvent(new Event("storage"));
     updateCartIndicador();
   };
 
