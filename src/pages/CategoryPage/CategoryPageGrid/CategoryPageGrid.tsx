@@ -12,6 +12,23 @@ interface ProductCategoryProps {
 const APP_BASE_PATH: string = "/product_images/";
 
 const GridCategoryPage = ({ categoryProductData }: ProductCategoryProps): JSX.Element => {
+  const addToCart = (product: Product): void => {
+    const cart: Product[] = JSON.parse(localStorage.getItem("cart") ?? "[]");
+    cart.push(product);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    updateCartIndicador();
+  };
+
+  const updateCartIndicador = (): void => {
+    const cart: Product[] = JSON.parse(localStorage.getItem("cart") ?? "[]");
+    const cartIndicator = document.getElementById("cart-indicator");
+    if (cartIndicator) {
+      cartIndicator.textContent = cart.length.toString();
+    }
+  };
+
+  document.addEventListener("DOMContentLoaded", updateCartIndicador);
+
   return (
     <div className="category-page-grid">
       <div className="category-page-grid__utils">
@@ -35,7 +52,14 @@ const GridCategoryPage = ({ categoryProductData }: ProductCategoryProps): JSX.El
                 <span className="category-page-grid__price">{product?.price?.EUR}€</span>
               </div>
               <div className="category-page-grid__info-shopping">
-                <img className="category-page-grid__add-to-cart" src={addtocart} alt="Add to cart button" />
+                <img
+                  className="category-page-grid__add-to-cart"
+                  src={addtocart}
+                  alt="Add to cart button"
+                  onClick={() => {
+                    addToCart(product);
+                  }}
+                />
                 <p className="category-page-grid__add-to-cart-text"></p>
               </div>
             </div>
