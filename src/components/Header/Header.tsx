@@ -7,11 +7,13 @@ import ShoppingIcon from "../../assets/bag.svg";
 import { NavLink } from "react-router-dom";
 import Dropdown from "../Dropdown/Dropdown";
 import { Category } from "../../models/Category";
+import Cart from "../Cart/Cart";
 
 const Header = (): JSX.Element => {
   const API_URL_CATEGORY = `${process.env.REACT_APP_API_URL as string}/categorie`;
   const [categories, setCategories] = useState<Category[]>([]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
   useEffect(() => {
     fetchCategories();
@@ -44,6 +46,10 @@ const Header = (): JSX.Element => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const toogleCart = (): void => {
+    setIsCartOpen(!isCartOpen);
+  };
+
   return (
     <>
       <div className="header">
@@ -62,10 +68,11 @@ const Header = (): JSX.Element => {
         </div>
         <div className="header__icon-container">
           <img src={SearchIcon} className="header__icon" />
-          <div className="header__shopping" >
-            <img src={ShoppingIcon} className="header__shopping-icon" />
+          <div className="header__shopping">
+            <img src={ShoppingIcon} className="header__shopping-icon" onClick={toogleCart} />
             <span className="header__shopping-indicator">83</span>
           </div>
+          {isCartOpen && <Cart onClose={toogleCart} />}
         </div>
       </div>
       {isMenuOpen && <Dropdown categories={categories} onClose={toogleMenu} />}
