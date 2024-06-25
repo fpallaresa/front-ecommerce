@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import "./CategoryPageGrid.scss";
 import { NavLink } from "react-router-dom";
 import filter from "../../../assets/filter.svg";
 import dummy from "../../../assets/dummy.png";
 import addtocart from "../../../assets/addtocart.svg";
 import { Product } from "../../../models/Product";
+import { useState } from "react";
 
 interface ProductCategoryProps {
   categoryProductData: Product[] | null;
@@ -12,12 +14,19 @@ interface ProductCategoryProps {
 const APP_BASE_PATH: string = "/product_images/";
 
 const GridCategoryPage = ({ categoryProductData }: ProductCategoryProps): JSX.Element => {
+  // Alerta de confirmación de que el producto se ha agregado al carrito
+  const [message, setMessage] = useState<string | null>(null);
+
   const addToCart = (product: Product): void => {
     const cart: Product[] = JSON.parse(localStorage.getItem("cart") ?? "[]");
     cart.push(product);
     localStorage.setItem("cart", JSON.stringify(cart));
     window.dispatchEvent(new Event("storage"));
     updateCartIndicador();
+    setMessage("¡El producto ha sido agregado al carrito!");
+    setTimeout(() => {
+      setMessage(null);
+    }, 2000);
   };
 
   const updateCartIndicador = (): void => {
@@ -32,6 +41,7 @@ const GridCategoryPage = ({ categoryProductData }: ProductCategoryProps): JSX.El
 
   return (
     <div className="category-page-grid">
+      {message && <div className="category-page-grid__message">{message}</div>}
       <div className="category-page-grid__utils">
         <div className="category-page-grid__filters">
           <img className="category-page-grid__filters-image" src={filter} alt="" />
