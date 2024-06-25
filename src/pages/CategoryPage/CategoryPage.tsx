@@ -79,7 +79,7 @@ const CategoryPage = (): JSX.Element => {
   return (
     <div className="category-page">
       <BreadcrumbsCategory categoryData={categoryData}></BreadcrumbsCategory>
-      <CategoryPageGrid categoryProductData={categoryProductData}></CategoryPageGrid>
+      <CategoryPageGrid categoryProductData={categoryProductData} ></CategoryPageGrid>
       <CategoryPaginator></CategoryPaginator>
     </div>
   );

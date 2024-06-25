@@ -35,6 +35,24 @@
         }
       }
 
+      &__breadcrumbs-subtitle {
+        font-size: $size-s;
+        color: $primary-color;
+        text-transform: uppercase;
+
+        &--link {
+            font-weight: 100;
+        }
+    
+        @media (min-width: 1024px) {
+          font-size: $size-m;
+        }
+    
+        @media (min-width: 1440px) {
+          font-size: $size-l;
+        }
+      }
+
       &__breadcrumbs-separator {
         width: 75%;
       }
