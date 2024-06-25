@@ -14,7 +14,7 @@ const Cart: React.FC<cartProps> = ({ onClose }): JSX.Element => {
       <div className="cart__container">
         <div className="cart__item">
           <img className="cart__item-img" src={product}></img>
-          <p className="cart__item-name">Hola</p>
+          <p className="cart__item-name">Nike AirMax</p>
           <div className="cart__button-container">
             <button className="cart__button-item">-</button>
             <button className="cart__button-item">+</button>
@@ -22,13 +22,14 @@ const Cart: React.FC<cartProps> = ({ onClose }): JSX.Element => {
         </div>
         <div className="cart__item">
           <img className="cart__item-img" src={product}></img>
-          <p className="cart__item-name">Hola</p>
+          <p className="cart__item-name">Adidas Ultraboost</p>
           <div className="cart__button-container">
             <button className="cart__button-item">-</button>
             <button className="cart__button-item">+</button>
           </div>
         </div>
       </div>
+      <button className="cart__button-total">Total</button>
     </div>
   );
 };
