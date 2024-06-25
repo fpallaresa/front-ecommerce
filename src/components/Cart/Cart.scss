@@ -55,4 +55,24 @@
   &__button-item{
     border-radius: 50%;
   }
+
+  &__button-total {
+    background-color: $light-blue-color; 
+    color: $light-color;
+    border: none;
+    border-radius: 5px;
+    padding: 15px 30px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  &__button-total:hover {
+    background-color: $light-blue-color;
+  }
+  
+  &__button-total:focus {
+    outline: none;
+    box-shadow: $blue-shadow; 
+  }
 }
