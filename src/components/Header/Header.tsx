@@ -7,14 +7,27 @@ import ShoppingIcon from "../../assets/bag.svg";
 import { NavLink } from "react-router-dom";
 import Dropdown from "../Dropdown/Dropdown";
 import { Category } from "../../models/Category";
+import { Product } from "../../models/Product";
 
 const Header = (): JSX.Element => {
   const API_URL_CATEGORY = `${process.env.REACT_APP_API_URL as string}/categorie`;
   const [categories, setCategories] = useState<Category[]>([]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [cartCount, setCartCount] = useState<number>(0);
 
   useEffect(() => {
     fetchCategories();
+    updateCartCount(); // Actualiza el contador cuando el componente se monta
+
+    const handleStorageChange = (): void => {
+      updateCartCount();
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
   }, []);
 
   const fetchCategories = (): void => {
@@ -40,6 +53,11 @@ const Header = (): JSX.Element => {
       });
   };
 
+  const updateCartCount = (): void => {
+    const cart: Product[] = JSON.parse(localStorage.getItem("cart") ?? "[]");
+    setCartCount(cart.length);
+  };
+
   const toogleMenu = (): void => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -62,9 +80,11 @@ const Header = (): JSX.Element => {
         </div>
         <div className="header__icon-container">
           <img src={SearchIcon} className="header__icon" />
-          <div className="header__shopping" >
+          <div className="header__shopping">
             <img src={ShoppingIcon} className="header__shopping-icon" />
-            <span className="header__shopping-indicator">83</span>
+            <span className="header__shopping-indicator" id="cart-indicator">
+              {cartCount}
+            </span>
           </div>
         </div>
       </div>
