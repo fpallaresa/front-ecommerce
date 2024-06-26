@@ -66,7 +66,7 @@ const SliderHome = (): JSX.Element => {
           </div>
         </div>
         <div className="feat-slider__item">
-          <div className="feat-slider__link">
+          <div className="feat-slider__link feat-slider__link--marketing3">
             <div className="feat-slider__container">
               <picture className="feat-slider__image-container">
                 <source srcSet={slider3imageMobile} media="(max-width: 767px)" />
@@ -84,7 +84,7 @@ const SliderHome = (): JSX.Element => {
           </div>
         </div>
         <div className="feat-slider__item">
-          <div className="feat-slider__link">
+          <div className="feat-slider__link feat-slider__link--marketing4">
             <div className="feat-slider__container">
               <picture className="feat-slider__image-container">
                 <source srcSet={slider4imageMobile} media="(max-width: 767px)" />
@@ -98,7 +98,7 @@ const SliderHome = (): JSX.Element => {
           </div>
         </div>
         <div className="feat-slider__item">
-          <div className="feat-slider__link">
+          <div className="feat-slider__link feat-slider__link--marketing5">
             <div className="feat-slider__container">
               <picture className="feat-slider__image-container">
                 <source srcSet={slider5imageMobile} media="(max-width: 767px)" />
