@@ -1,6 +1,7 @@
 @import "../../styles/variables.scss";
 
 .dropdown {
+
   &__background {
     width: 100%;
     background-color: $primary-color;
@@ -34,10 +35,25 @@
   &__close-icon {
     width: 25px;
   }
+
   &__link {
     text-transform: uppercase;
     color: $light-color;
     text-decoration: none;
     font-size: $size-l;
+  }
+
+  &__category {
+    border-bottom: solid $dark-grey-color 1px;
+  }
+
+  &__subcategories-list {
+    list-style-type: none;
+    margin-bottom: 5px;  
+
+    & .dropdown__link {
+    font-size: $size-s;
+    }
+    
   }
 }

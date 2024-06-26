@@ -10,6 +10,7 @@ export interface Category {
     en: string;
   };
   parentCategory: ParentCategory | null;
+  children: Category[];
 }
 
 interface ParentCategory {
