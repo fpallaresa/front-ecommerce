@@ -16,10 +16,11 @@ const Header = (): JSX.Element => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [cartCount, setCartCount] = useState<number>(0);
+  const mainCategories = categories.filter(category => !category.parentCategory);
 
   useEffect(() => {
     fetchCategories();
-    updateCartCount(); // Actualiza el contador cuando el componente se monta
+    updateCartCount();
 
     const handleStorageChange = (): void => {
       updateCartCount();
@@ -46,8 +47,7 @@ const Header = (): JSX.Element => {
         return await response.json();
       })
       .then((responseParsed: Category[]) => {
-        const mainCategories = responseParsed.filter((category) => category.parentCategory === null);
-        setCategories(mainCategories);
+        setCategories(responseParsed);
       })
       .catch((error) => {
         console.error(error);
@@ -78,7 +78,7 @@ const Header = (): JSX.Element => {
           <img src={logo} className="header__logo" />
         </NavLink>
         <div className="header__navigation">
-          {categories.map((category) => (
+          {mainCategories.map((category) => (
             <NavLink key={category._id} className="header__link" to={category.name.es.toLowerCase()} title="">
               {category.name.es}
             </NavLink>
