@@ -3,8 +3,8 @@ import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Product } from "../../../models/Product";
 
-const CategoryGridHome = (props: any): JSX.Element => {
-  const API_URL_PRODUCT_BY_CATEGORY = `${process.env.REACT_APP_API_URL as string}/product/category/${props.category._id as string}`;
+const CategoryGridHome = (): JSX.Element => {
+  const API_URL_PRODUCT_BY_CATEGORY = `${process.env.REACT_APP_API_URL as string}/product/featured?limit=6`;
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
@@ -24,8 +24,8 @@ const CategoryGridHome = (props: any): JSX.Element => {
         }
         return await response.json();
       })
-      .then((responseParsed: Product[]) => {
-        setProducts(responseParsed);
+      .then((responseParsed) => {
+        setProducts(responseParsed.data as Product[]);
       })
       .catch((error) => {
         console.error(error);
@@ -36,9 +36,7 @@ const CategoryGridHome = (props: any): JSX.Element => {
   return (
     <div className="category-grid">
       <div className="category-grid__balcony">
-        <NavLink className="category-grid__link" to={props.category.name.es.toLowerCase()} title="">
-          <h3 className="category-grid__balcony-title">{props.category.name.es}</h3>
-        </NavLink>
+        <h3 className="category-grid__balcony-title">PRODUCTOS DESTACADOS</h3>
       </div>
       <div className="category-grid__container">
         {products?.map((product, index) => (
