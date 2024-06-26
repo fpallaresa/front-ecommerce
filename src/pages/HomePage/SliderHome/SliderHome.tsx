@@ -37,13 +37,13 @@ const SliderHome = (): JSX.Element => {
                 <h2 className="feat-slider__title">Rebajas</h2>
                 <span className="feat-slider__offer">Hasta un -40%</span>
                 <div className="feat-slider__links-category">
-                  <NavLink className="feat-slider__link-category" to="/mujer" title="">
+                  <NavLink className="feat-slider__link-category" to="/mujer" title="Mujer">
                     Mujer
                   </NavLink>
-                  <NavLink className="feat-slider__link-category" to="/hombre" title="">
+                  <NavLink className="feat-slider__link-category" to="/hombre" title="Hombre">
                     Hombre
                   </NavLink>
-                  <NavLink className="feat-slider__link-category" to="/infantil" title="">
+                  <NavLink className="feat-slider__link-category" to="/infantil" title="Infantil">
                     Infantil
                   </NavLink>
                 </div>
@@ -60,7 +60,7 @@ const SliderHome = (): JSX.Element => {
               </picture>
               <div className="feat-slider__info feat-slider__info--marketing2">
                 <h2 className="feat-slider__title feat-slider__title--marketing2">ReWalk</h2>
-                <span className="feat-slider__offer feat-slider__offer--marketing2">Una colección de zapatos de segunda mano y segundas calidades listos para caminar de nuevo.</span>
+                <span className="feat-slider__offer feat-slider__offer--marketing2">Una colección de zapatos de segunda mano listos para caminar de nuevo.</span>
               </div>
             </div>
           </div>
@@ -75,7 +75,7 @@ const SliderHome = (): JSX.Element => {
               <div className="feat-slider__info feat-slider__info--marketing3">
                 <h2 className="feat-slider__title feat-slider__title--marketing3">Regalos para todo el mundo</h2>
                 <div className="feat-slider__links-category">
-                  <NavLink className="feat-slider__link-category feat-slider__link-category--marketing3" to="/hombre" title="">
+                  <NavLink className="feat-slider__link-category feat-slider__link-category--marketing3" to="/hombre" title="Comprar para hombre">
                     Comprar para hombre
                   </NavLink>
                 </div>
