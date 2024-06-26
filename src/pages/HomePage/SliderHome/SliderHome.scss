@@ -1,57 +1,257 @@
 @import "../../../styles/variables.scss";
 
 .feat-slider {
-  margin: 20px 10px 50px;
+  margin: 0 0 50px;
   border-radius: 10px;
 
   @media (min-width: 1024px) {
-    margin: 20px auto 60px;
+    margin: 0 auto 60px;
     max-width: 1440px;
   }
 
   &__link {
     display: flex;
     position: relative;
+    justify-content: center;
+
+    &--marketing1 {
+      background-color: #fc292a;
+    }
+
+    &--marketing2 {
+      background-color: #cbcbcb;
+    }
+  }
+
+  &__image-container {
+    z-index: 100;
+    width: 100%;
+    height: auto;
   }
 
   &__image {
-    z-index: 100;
     width: 100%;
-    height: 75vh;
-    background-size: cover;
-    background-position: center;
-    background-image: url("../../../assets/dummy-large.png");
-    border-radius: 20px;
+    height: auto;
   }
 
-  &__info{
+  &__info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     position: absolute;
-    bottom: 60px;
+    top: 10%;
     left: 20px;
     right: 20px;
-  }
 
-  &__category {
-    font-size: $size-xs;
-    color: $primary-color;
-    text-transform: uppercase;
-    margin-left: 20px;
+    @media (min-width: 768px) {
+      width: 50%;
+      top: 20%;
+      left: 5px;
+
+      &--marketing2 {
+        left: auto;
+        right: -150px;
+      }
+
+      &--marketing3 {
+        bottom: 5% !important;
+        left: 3%;
+        width: 350px;
+      }
+
+      &--marketing4 {
+        align-items: flex-start;
+        width: 50%!important;
+        top: 15%!important;
+        left: unset;
+        right: -50px;
+      }
+
+      &--marketing5 {
+        align-items: flex-start;
+        width: 50%!important;
+        left: unset;
+        right: -50px;
+        bottom : 10%!important;
+      }
+
+    }
+
+    @media (min-width: 1024px) {
+      top: 30%;
+
+      &--marketing3 {
+        bottom: 16% !important;
+        left: 12%;
+        width: 420px;
+      }
+
+      &--marketing4 {
+        align-items: flex-start;
+        width: 80%;
+      }
+    }
+
+    @media (min-width: 1400px) {
+      &--marketing3 {
+        bottom: 16% !important;
+        left: 8%;
+        width: 420px;
+      }
+    }
+
+    &--marketing2 {
+      align-items: flex-start;
+    }
+
+    &--marketing3 {
+      align-items: flex-start;
+      top: auto;
+      bottom: 6%;
+    }
+
+    &--marketing4 {
+      align-items: flex-start;
+      bottom: 2%;
+      width: 80%;
+      top: unset;
+    }
+
+    &--marketing5 {
+      align-items: flex-start;
+      bottom: 5%;
+      top: unset;
+    }
   }
 
   &__title {
-    font-size: $size-l;
+    font-size: $size-xxxl;
     font-weight: 700;
-    color: $primary-color;
-    margin: 5px 20px 20px;
+    color: $light-color;
+    margin: 5px auto 10px;
+
+    &--marketing2 {
+      color: $dark-color;
+      text-align: left;
+      margin: 5px 0 10px;
+    }
+
+    &--marketing3 {
+      font-size: $size-xxl;
+    }
+
+    &--marketing4 {
+      text-align: left;
+      margin: 5px 0 10px;
+    }
+
+    &--marketing5 {
+      text-align: left;
+      margin: 5px 0 10px;
+      max-width: 600px;
+    }
+
+    @media (min-width: 768px) {
+      margin: 5px 0 10px;
+      font-size: $size-xxxl;
+
+      &--marketing4 {
+        color: $dark-color;
+      }
+      &--marketing5 {
+        font-size: $size-xxl;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      margin: 5px 0 10px;
+      font-size: $size-xxxxl;
+    }
+
+    @media (min-width: 1400px) {
+      margin: 5px 0 10px;
+      font-size: $size-xxxxl;
+    }
   }
 
-  &__price {
+  &__offer {
     font-size: $size-m;
     color: $light-color;
-    margin-left: 20px;
-    background-color: $primary-color;
+    text-transform: uppercase;
+    margin-bottom: 50px;
+    line-height: 1.4;
+
+    &--marketing2 {
+      color: $dark-color;
+      text-transform: capitalize;
+      width: 50%;
+    }
+
+    &--marketing4 {
+      text-align: left;
+      text-transform: capitalize;
+    }
+
+    &--marketing5 {
+      text-transform: capitalize;
+      margin-bottom: 0px;
+    }
+
+    @media (min-width: 768px) {
+      &--marketing4 {
+        color: $dark-color;
+        font-size: $size-s;
+        max-width: 350px;
+      }
+    }
+    @media (min-width: 1024px) {
+      &--marketing4 {
+        font-size: $size-m;
+        max-width: 450px;
+      }
+    }
+  }
+
+  &__links-category {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+
+    &--marketing5 {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  &__link-category {
+    font-size: $size-m;
+    color: $primary-color;
+    background-color: $light-color;
     padding: 10px;
     border-radius: 100px;
+
+    &--marketing3 {
+      color: $light-color;
+      background-color: unset;
+      font-size: $size-l;
+      padding-left: 0;
+
+      &::before {
+        content: "> ";
+      }
+    }
+
+    &--marketing5 {
+      font-size: $size-s;
+    }
+
+    @media (min-width: 768px) {
+      font-size: $size-xs;
+
+      &--marketing3 {
+        font-size: $size-m;
+      }
+    }
   }
 }
 
