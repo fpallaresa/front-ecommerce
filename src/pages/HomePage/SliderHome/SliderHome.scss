@@ -6,7 +6,7 @@
 
   @media (min-width: 1024px) {
     margin: 0 auto 60px;
-    max-width: 1440px;
+    // max-width: 1440px;
   }
 
   &__link {
@@ -20,6 +20,18 @@
 
     &--marketing2 {
       background-color: #cbcbcb;
+    }
+
+    &--marketing3 {
+      background-color: #fb924b;
+    }
+
+    &--marketing4 {
+      background-color: #cacaca;
+    }
+
+    &--marketing5 {
+      background-color: #cfbea9;;
     }
   }
 
