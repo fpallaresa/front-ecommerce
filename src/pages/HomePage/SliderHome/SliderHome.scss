@@ -6,7 +6,6 @@
 
   @media (min-width: 1024px) {
     margin: 0 auto 60px;
-    // max-width: 1440px;
   }
 
   &__link {
@@ -149,7 +148,8 @@
     }
 
     &--marketing3 {
-      font-size: $size-xxl;
+      font-size: $size-xl;
+      margin: 5px 0 10px;
     }
 
     &--marketing4 {
@@ -195,17 +195,14 @@
 
     &--marketing2 {
       color: $dark-color;
-      text-transform: capitalize;
       width: 50%;
     }
 
     &--marketing4 {
       text-align: left;
-      text-transform: capitalize;
     }
 
     &--marketing5 {
-      text-transform: capitalize;
       margin-bottom: 0px;
     }
 
