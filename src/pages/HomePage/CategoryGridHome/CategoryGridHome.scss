@@ -130,4 +130,20 @@
     font-size: $size-xxs;
     text-transform: uppercase;
   }
+
+  &__message {
+    position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #d3d3d3; /* Fondo gris */
+      color: #333333; /* Texto gris oscuro */
+      padding: 10px;
+      border-radius: 5px;
+      z-index: 1000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 16px;
+    }
 }

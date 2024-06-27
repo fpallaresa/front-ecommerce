@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import filter from "../../../assets/filter.svg";
 import dummy from "../../../assets/dummy.png";
 import addtocart from "../../../assets/addtocart.svg";
-import { Product } from "../../../models/Product";
+import { Product, CartItem } from "../../../models/Product";
 import { useState } from "react";
 
 interface ProductCategoryProps {
@@ -17,9 +17,18 @@ const GridCategoryPage = ({ categoryProductData }: ProductCategoryProps): JSX.El
   // Alerta de confirmación de que el producto se ha agregado al carrito
   const [message, setMessage] = useState<string | null>(null);
 
-  const addToCart = (product: Product): void => {
-    const cart: Product[] = JSON.parse(localStorage.getItem("cart") ?? "[]");
-    cart.push(product);
+  const addToCart = (product: Product, skuId: string): void => {
+    const sku = product.sku[skuId];
+    const cartItem: CartItem = {
+      productId: product._id,
+      productName: product.title.es,
+      productPrice: product.price.EUR,
+      stock: sku.stock,
+      sku: skuId,
+      quantity: 1 // Lo dejo así por defecto
+    };
+    const cart: CartItem[] = JSON.parse(localStorage.getItem("cart") ?? "[]");
+    cart.push(cartItem);
     localStorage.setItem("cart", JSON.stringify(cart));
     window.dispatchEvent(new Event("storage"));
     updateCartIndicador();
@@ -27,11 +36,11 @@ const GridCategoryPage = ({ categoryProductData }: ProductCategoryProps): JSX.El
     setTimeout(() => {
       setMessage(null);
     }, 2000)
-    console.log(cart)
+    console.log("al carrito:", cartItem)
   };
 
   const updateCartIndicador = (): void => {
-    const cart: Product[] = JSON.parse(localStorage.getItem("cart") ?? "[]");
+    const cart: CartItem[] = JSON.parse(localStorage.getItem("cart") ?? "[]");
     const cartIndicator = document.getElementById("cart-indicator");
     if (cartIndicator) {
       cartIndicator.textContent = cart.length.toString();
@@ -51,32 +60,39 @@ const GridCategoryPage = ({ categoryProductData }: ProductCategoryProps): JSX.El
         <span className="category-page__total-items">{categoryProductData ? `${categoryProductData.length} productos` : "Cargando..."}</span>
       </div>
       <div className="category-page-grid__container">
-        {categoryProductData?.map((product, index) => (
-          <div className="category-page-grid__info-container" key={index}>
-            <NavLink className="category-page-grid__link" to="#" title="">
-              <img className="category-page-grid__image" src={product?.imageSquare ? `${APP_BASE_PATH}${product?.imageSquare}` : dummy} alt={product?.title?.es} />
-            </NavLink>
-            <div className="category-page-grid__info">
-              <div className="category-page-grid__info-product">
-                <NavLink className="category-page-grid__link" to="#" title={product?.title?.es}>
-                  <h4 className="category-page-grid__title">{product?.title?.es}</h4>
-                </NavLink>
-                <span className="category-page-grid__price">{product?.price?.EUR}€</span>
-              </div>
-              <div className="category-page-grid__info-shopping">
-                <img
-                  className="category-page-grid__add-to-cart"
-                  src={addtocart}
-                  alt="Add to cart button"
-                  onClick={() => {
-                    addToCart(product);
-                  }}
-                />
-                <p className="category-page-grid__add-to-cart-text"></p>
+        {categoryProductData?.map((product, index) => {
+          const firstSkuKey = Object.keys(product.sku)[0];
+          const firstSku = product.sku[firstSkuKey];
+          return (
+            <div className="category-page-grid__info-container" key={index}>
+              <NavLink className="category-page-grid__link" to="#" title="">
+                <img className="category-page-grid__image" src={product?.imageSquare ? `${APP_BASE_PATH}${product?.imageSquare}` : dummy} alt={product?.title?.es} />
+              </NavLink>
+              <div className="category-page-grid__info">
+                <div className="category-page-grid__info-product">
+                  <NavLink className="category-page-grid__link" to="#" title={product?.title?.es}>
+                    <h4 className="category-page-grid__title">{product?.title?.es}</h4>
+                  </NavLink>
+                  <span className="category-page-grid__price">{product?.price?.EUR}€</span>
+                </div>
+                <div className="category-page-grid__info-shopping">
+                  <img
+                    className={`category-page-grid__add-to-cart ${firstSku.stock > 0 ? "" : "¡Sin stock!"}`}
+                    src={addtocart}
+                    alt="Add to cart button"
+                    onClick={() => {
+                      if (firstSku.stock > 0) {
+                        addToCart(product, firstSkuKey);
+                      }
+                    }}
+                    style={{ opacity: firstSku.stock > 0 ? 1 : 0.5 }}
+                  />
+                  <p className="category-page-grid__add-to-cart-text"></p>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
