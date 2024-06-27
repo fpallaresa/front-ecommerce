@@ -25,4 +25,5 @@ export interface CartItem {
   stock: number;
   sku: string;
   quantity: number;
+  image: string;
 }
