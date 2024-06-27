@@ -25,6 +25,7 @@
 
   &__close-icon {
     width: 25px;
+    cursor: pointer;
 
     @media (min-width: 1024px) {
       width: 15px;
