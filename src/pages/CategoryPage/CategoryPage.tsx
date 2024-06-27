@@ -68,7 +68,7 @@ const CategoryPage = (): JSX.Element => {
         return await response.json();
       })
       .then((data) => {
-        setCategoryProductData(data);
+        setCategoryProductData(data.data);
       })
       .catch((error) => {
         console.error("Error al obtener datos de la categoría:", error);

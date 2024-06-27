@@ -5,7 +5,7 @@ import filter from "../../../assets/filter.svg";
 import dummy from "../../../assets/dummy.png";
 import addtocart from "../../../assets/addtocart.svg";
 import { Product, CartItem } from "../../../models/Product";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface ProductCategoryProps {
   categoryProductData: Product[] | null;
@@ -18,36 +18,51 @@ const GridCategoryPage = ({ categoryProductData }: ProductCategoryProps): JSX.El
   const [message, setMessage] = useState<string | null>(null);
 
   const addToCart = (product: Product, skuId: string): void => {
-    const sku = product.sku[skuId];
-    const cartItem: CartItem = {
-      productId: product._id,
-      productName: product.title.es,
-      productPrice: product.price.EUR,
-      stock: sku.stock,
-      sku: skuId,
-      quantity: 1 // Lo dejo así por defecto
-    };
     const cart: CartItem[] = JSON.parse(localStorage.getItem("cart") ?? "[]");
-    cart.push(cartItem);
+    let existe = false;
+    cart.forEach((product, index) => {
+      if (product.sku === skuId) {
+        existe = true;
+        cart[index].quantity += 1;
+      }
+    });
+    if (!existe) {
+      const sku = product.sku[skuId];
+      const cartItem: CartItem = {
+        productId: product._id,
+        productName: product.title.es,
+        productPrice: product.price.EUR,
+        stock: sku.stock,
+        sku: skuId,
+        quantity: 1, // Lo dejo así por defecto
+        image: product.imageSquare,
+      };
+      cart.push(cartItem);
+    }
+
     localStorage.setItem("cart", JSON.stringify(cart));
     window.dispatchEvent(new Event("storage"));
     updateCartIndicador();
     setMessage("¡El producto ha sido agregado al carrito!");
     setTimeout(() => {
       setMessage(null);
-    }, 2000)
-    console.log("al carrito:", cartItem)
+    }, 2000);
   };
 
   const updateCartIndicador = (): void => {
     const cart: CartItem[] = JSON.parse(localStorage.getItem("cart") ?? "[]");
     const cartIndicator = document.getElementById("cart-indicator");
     if (cartIndicator) {
-      cartIndicator.textContent = cart.length.toString();
+      let numberOfProducts = 0;
+      cart.forEach((product) => {
+        numberOfProducts += product.quantity;
+      });
+      cartIndicator.textContent = numberOfProducts.toString();
     }
   };
-
-  document.addEventListener("DOMContentLoaded", updateCartIndicador);
+  useEffect(() => {
+    document.addEventListener("DOMContentLoaded", updateCartIndicador);
+  }, []);
 
   return (
     <div className="category-page-grid">
