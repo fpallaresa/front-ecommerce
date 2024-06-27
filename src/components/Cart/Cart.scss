@@ -3,18 +3,24 @@
 .cart {
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
   align-content: flex-end;
-  width: 38%;
-  background-color: #031732;
-  height: 50vh;
+  width: 80%;
+  background-color: $light-color;
+  height: 100vh;
   position: fixed;
-  top: 12px;
+  top: 0;
   right: 0;
-  z-index: 90;
+  z-index: 1000;
+  padding: 20px;
+
+  @media (min-width: 768px) {
+    width: 350px;
+  }
 
   &__header {
-    margin: 10px;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 40px;
   }
 
   &__close-icon {
@@ -25,54 +31,73 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    width: 86%;
-    margin: 20px;
+    width: 100%;
     gap: 10px;
+    margin-bottom: 40px;
   }
 
   &__item {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     align-items: center;
+    gap: 20px;
+    border-bottom: solid $light-grey-color 1px;
+    padding-bottom: 20px;
+    margin-bottom: 10px;
+    width: 100%;
+  }
+
+  &__item-img {
+    width: 80px;
+    border-radius: 10px;
+  }
+
+  &__item-name {
+    font-family: "Inter";
+    font-size: $size-m;
+    color: $primary-color;
+    text-align: left;
+    margin-top: 5px;
+  }
+
+  &__button-container {
+    display: flex;
     gap: 10px;
   }
 
-  &__item-img{
+  &__button-item {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    font-size: $size-l;
+  }
+  
+  &__input {
     width: 50px;
-    border-radius: 50%;
-  }
-  &__item-name{
-    font-family: "Inter";
+    border-radius: 10px;
+    border: 1px solid #d9d9d9;
+    padding: 5px;
     font-size: $size-m;
-    color: $light-color;
-  }
-
-  &__button-container{
-    display: flex;
-    gap:5px;
-  }
-
-  &__button-item{
-    border-radius: 50%;
+    text-align: center;
   }
 
   &__button-total {
-    background-color: $light-blue-color; 
+    background-color: $light-blue-color;
     color: $light-color;
     border: none;
     border-radius: 5px;
     padding: 15px 30px;
-    font-size: 18px;
+    font-size: $size-m;
     cursor: pointer;
     transition: background-color 0.3s;
   }
-  
+
   &__button-total:hover {
     background-color: $light-blue-color;
   }
-  
+
   &__button-total:focus {
     outline: none;
-    box-shadow: $blue-shadow; 
+    box-shadow: $blue-shadow;
   }
 }
