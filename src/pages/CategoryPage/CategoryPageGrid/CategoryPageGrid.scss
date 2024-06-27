@@ -123,10 +123,9 @@
     font-size: $size-xxs;
     text-transform: uppercase;
   }
-}
 
-.category-page-grid__message {
-  position: fixed;
+  &__message {
+    position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -139,4 +138,5 @@
   justify-content: center;
   align-items: center;
   font-size: 16px;
+  }
 }
