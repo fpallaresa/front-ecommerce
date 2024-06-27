@@ -9,7 +9,7 @@ interface cartProps {
 const APP_BASE_PATH: string = "/product_images/";
 const Cart: React.FC<cartProps> = ({ onClose }): JSX.Element => {
   const cartProducts: Product[] = JSON.parse(localStorage.getItem("cart") ?? "[]");
-//   const [cart, setCart] = useState<Product[]>(cartProducts);
+  //   const [cart, setCart] = useState<Product[]>(cartProducts);
 
   //   const handleQuantityChange = (index: number, amount: number) => {
   //     const newCart = [...cart];

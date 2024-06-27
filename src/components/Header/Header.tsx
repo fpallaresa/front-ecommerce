@@ -4,6 +4,7 @@ import MenuIcon from "../../assets/menu.svg";
 import logo from "../../assets/logo.svg";
 import SearchIcon from "../../assets/search.svg";
 import ShoppingIcon from "../../assets/bag.svg";
+import closeBlack from "../../assets/close-black.svg";
 import { NavLink } from "react-router-dom";
 import Dropdown from "../Dropdown/Dropdown";
 import { Category } from "../../models/Category";
@@ -15,8 +16,9 @@ const Header = (): JSX.Element => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [cartCount, setCartCount] = useState<number>(0);
-  const mainCategories = categories.filter(category => !category.parentCategory);
+  const mainCategories = categories.filter((category) => !category.parentCategory);
 
   useEffect(() => {
     fetchCategories();
@@ -68,6 +70,10 @@ const Header = (): JSX.Element => {
     setIsCartOpen(!isCartOpen);
   };
 
+  const toggleSearch = (): void => {
+    setIsSearchOpen(!isSearchOpen);
+  };
+
   return (
     <>
       <div className="header">
@@ -85,7 +91,9 @@ const Header = (): JSX.Element => {
           ))}
         </div>
         <div className="header__icon-container">
-          <img src={SearchIcon} className="header__icon" />
+          <div className="header__search-container">
+            <img src={SearchIcon} className="header__icon" onClick={toggleSearch} />
+          </div>
           <div className="header__shopping">
             <img src={ShoppingIcon} className="header__shopping-icon" onClick={toogleCart} />
             <span className="header__shopping-indicator" id="cart-indicator">
@@ -96,6 +104,20 @@ const Header = (): JSX.Element => {
         </div>
       </div>
       {isMenuOpen && <Dropdown categories={categories} onClose={toogleMenu} />}
+      {isSearchOpen && (
+        <div className="header__search-modal">
+          <div className="header__search-content">
+            <img src={closeBlack} className="header__search-close-icon" onClick={toggleSearch} alt="Cerrar" />
+            <span className="header__search-text">Buscar</span>
+            <div className="header__search-info">
+              <input type="text" placeholder="Introduzca una palabra" className="header__search-input" />
+              <button className="header__search-button" type="submit">
+                <img src={SearchIcon} alt="Buscar" />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };
