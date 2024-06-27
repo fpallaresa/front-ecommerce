@@ -12,6 +12,8 @@
   right: 0;
   z-index: 1000;
   padding: 20px;
+  overflow: scroll;
+  align-items: center;
 
   @media (min-width: 768px) {
     width: 350px;
@@ -21,6 +23,7 @@
     display: flex;
     justify-content: flex-end;
     margin-bottom: 40px;
+    margin-right: -90%;
   }
 
   &__close-icon {
@@ -92,7 +95,7 @@
       border-radius: 10px;
     }
   }
-  
+
   &__input {
     width: 50px;
     border-radius: 10px;
@@ -115,6 +118,8 @@
     font-size: $size-m;
     cursor: pointer;
     transition: background-color 0.3s;
+    margin-bottom: 85px;
+    width: 240px;
   }
 
   &__button-total:hover {

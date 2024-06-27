@@ -7,6 +7,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 
   @media (min-width: 1024px) {
     height: 60px;
@@ -27,12 +28,11 @@
   &__link {
     text-decoration: none;
     text-transform: uppercase;
-    font-size: $size-m ;
+    font-size: $size-m;
     color: $light-color;
   }
 
   &__menu-container {
-
     @media (min-width: 1024px) {
       display: none;
     }
@@ -69,7 +69,7 @@
     display: flex;
     position: relative;
     cursor: pointer;
-    
+
     &:hover {
       opacity: 0.6;
     }
@@ -92,5 +92,72 @@
     font-size: $size-xxs;
     border-radius: 50%;
     padding: 2px;
+  }
+
+  &__search-modal {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: $light-color;
+    opacity: 0.95;
+    z-index: 1000;
+  }
+
+  &__search-content {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 30vh;
+    gap: 30px;
+    width: 90%;
+  }
+
+  &__search-text {
+    font-size: $size-xl;
+    font-weight: 700;
+  }
+
+  &__search-info {
+    display: flex;
+    width: 90%;
+    max-width: 400px
+  }
+
+  &__search-input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid $light-grey-color;
+    border-radius: 4px; 
+    width: 80%;
+    font-family: "Inter", sans-serif;
+
+    &::placeholder {
+      font-style: oblique;
+    }
+  }
+
+  &__search-info {
+    gap: 10px;
+  }
+
+  &__search-button {
+    cursor: pointer;
+    background: $primary-color;
+    width: 40px;
+    height: 40px;
+  }
+
+  &__search-close-icon {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    right: 20px;
   }
 }
