@@ -25,6 +25,10 @@
 
   &__close-icon {
     width: 25px;
+
+    @media (min-width: 1024px) {
+      width: 15px;
+    }
   }
 
   &__container {
@@ -48,16 +52,23 @@
   }
 
   &__item-img {
-    width: 80px;
+    max-width: 100px;
+    min-width: 80px;
     border-radius: 10px;
   }
 
   &__item-name {
-    font-family: "Inter";
     font-size: $size-m;
+    font-weight: 700;
     color: $primary-color;
     text-align: left;
-    margin-top: 5px;
+    margin: 5px auto 2px;
+  }
+
+  &__item-price {
+    font-size: $size-s;
+    margin-top: 0;
+    color: $dark-grey-color;
   }
 
   &__button-container {
@@ -70,6 +81,15 @@
     height: 40px;
     border-radius: 10px;
     font-size: $size-l;
+
+    @media (min-width: 1024px) {
+      width: 30px;
+      height: 30px;
+      font-size: $size-xs;
+      min-width: 20px;
+      min-height: 20px;
+      border-radius: 10px;
+    }
   }
   
   &__input {
@@ -79,6 +99,10 @@
     padding: 5px;
     font-size: $size-m;
     text-align: center;
+
+    @media (min-width: 1024px) {
+      font-size: $size-xs;
+    }
   }
 
   &__button-total {
