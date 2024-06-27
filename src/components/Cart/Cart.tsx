@@ -29,18 +29,6 @@ const Cart: React.FC<cartProps> = ({ onClose }): JSX.Element => {
             </div>
           </div>
         ))}
-        {/* <div className="cart__item">
-          <img className="cart__item-img" src={dummy}></img>
-          <div className="cart__item-name-container">
-            <p className="cart__item-name">Adidas Ultraboost</p>
-            <p className="cart__item-price">10€</p>
-            <div className="cart__button-container">
-              <button className="cart__button-item">-</button>
-              <input type="Number" value="3" name="quantity" required className="cart__input" />
-              <button className="cart__button-item">+</button>
-            </div>
-          </div>
-        </div> */}
       </div>
       <button type="submit" className="cart__button-total">
         PAGAR (300€)
