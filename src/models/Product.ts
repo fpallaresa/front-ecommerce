@@ -17,3 +17,13 @@ export interface Product {
   imageLarge: string;
   imageSquare: string;
 }
+
+export interface CartItem {
+  productId: string;
+  productName: string;
+  productPrice: number;
+  stock: number;
+  sku: string;
+  quantity: number;
+  image: string;
+}
