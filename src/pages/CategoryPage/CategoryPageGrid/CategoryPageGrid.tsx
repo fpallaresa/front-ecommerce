@@ -26,7 +26,8 @@ const GridCategoryPage = ({ categoryProductData }: ProductCategoryProps): JSX.El
     setMessage("¡El producto ha sido agregado al carrito!");
     setTimeout(() => {
       setMessage(null);
-    }, 2000);
+    }, 2000)
+    console.log(cart)
   };
 
   const updateCartIndicador = (): void => {
