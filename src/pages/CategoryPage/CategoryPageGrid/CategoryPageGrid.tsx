@@ -9,11 +9,12 @@ import { useEffect, useState } from "react";
 
 interface ProductCategoryProps {
   categoryProductData: Product[] | null;
+  totalProducts: string | null;
 }
 
 const APP_BASE_PATH: string = "/product_images/";
 
-const GridCategoryPage = ({ categoryProductData }: ProductCategoryProps): JSX.Element => {
+const GridCategoryPage = ({ categoryProductData, totalProducts }: ProductCategoryProps): JSX.Element => {
   // Alerta de confirmación de que el producto se ha agregado al carrito
   const [message, setMessage] = useState<string | null>(null);
 
@@ -72,7 +73,7 @@ const GridCategoryPage = ({ categoryProductData }: ProductCategoryProps): JSX.El
           <img className="category-page-grid__filters-image" src={filter} alt="" />
           <span className="category-page-grid__filters-title">Filtrar / Ordenar</span>
         </div>
-        <span className="category-page__total-items">{categoryProductData ? `${categoryProductData.length} productos` : "Cargando..."}</span>
+        <span className="category-page__total-items">{totalProducts ? `${totalProducts} productos` : "Cargando..."}</span>
       </div>
       <div className="category-page-grid__container">
         {categoryProductData?.map((product, index) => {
