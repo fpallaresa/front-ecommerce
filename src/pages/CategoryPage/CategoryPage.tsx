@@ -12,6 +12,10 @@ const CategoryPage = (): JSX.Element => {
   const API_URL_CATEGORY = `${process.env.REACT_APP_API_URL as string}/categorie`;
   const [categoryData, setCategoryData] = useState<any>(null);
   const [categoryProductData, setCategoryProductData] = useState<Product[]>([]);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [itemsPerPage] = useState<number>(12);
+  const [totalPages, setTotalPages] = useState<number>(1);
+  const [totalProducts, setTotalProducts] = useState<string | null>(null);
 
   useEffect(() => {
     fetchCategoryId();
@@ -19,9 +23,9 @@ const CategoryPage = (): JSX.Element => {
 
   useEffect(() => {
     if (categoryId) {
-      fetchCategoryProduct(categoryId);
+      fetchCategoryProduct(categoryId, currentPage, itemsPerPage);
     }
-  }, [categoryName, categoryId]);
+  }, [categoryName, categoryId, currentPage]);
 
   const fetchCategoryId = (): void => {
     fetch(API_URL_CATEGORY, {
@@ -53,8 +57,8 @@ const CategoryPage = (): JSX.Element => {
       });
   };
 
-  const fetchCategoryProduct = (id: string): void => {
-    const API_URL_PRODUCTS = `${process.env.REACT_APP_API_URL as string}/product/category/${id}`;
+  const fetchCategoryProduct = (id: string, page: number, limit: number): void => {
+    const API_URL_PRODUCTS = `${process.env.REACT_APP_API_URL as string}/product/category/${id}?limit=${limit}&page=${page}`;
 
     fetch(API_URL_PRODUCTS, {
       headers: {
@@ -69,6 +73,8 @@ const CategoryPage = (): JSX.Element => {
       })
       .then((data) => {
         setCategoryProductData(data.data);
+        setTotalPages(data.totalPages);
+        setTotalProducts(data.totalItems);
       })
       .catch((error) => {
         console.error("Error al obtener datos de la categoría:", error);
@@ -79,8 +85,8 @@ const CategoryPage = (): JSX.Element => {
   return (
     <div className="category-page">
       <BreadcrumbsCategory categoryData={categoryData}></BreadcrumbsCategory>
-      <CategoryPageGrid categoryProductData={categoryProductData}></CategoryPageGrid>
-      <CategoryPaginator></CategoryPaginator>
+      <CategoryPageGrid categoryProductData={categoryProductData} totalProducts={totalProducts}></CategoryPageGrid>
+      <CategoryPaginator currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage}></CategoryPaginator>
     </div>
   );
 };
