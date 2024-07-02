@@ -148,8 +148,12 @@
   &__search-button {
     cursor: pointer;
     background: $primary-color;
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
+
+    & img {
+      margin: auto;
+    } 
   }
 
   &__search-close-icon {
