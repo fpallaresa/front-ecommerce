@@ -94,8 +94,8 @@ const Header = (): JSX.Element => {
           <div className="header__search-container">
             <img src={SearchIcon} className="header__icon" onClick={toggleSearch} />
           </div>
-          <div className="header__shopping">
-            <img src={ShoppingIcon} className="header__shopping-icon" onClick={toogleCart} />
+          <div className="header__shopping" onClick={toogleCart}>
+            <img src={ShoppingIcon} className="header__shopping-icon" />
             <span className="header__shopping-indicator" id="cart-indicator">
               {cartCount}
             </span>
