@@ -19,6 +19,11 @@
     margin: 00 auto 20px;
   }
 
+  &__filters {
+    display: flex;
+    justify-content: flex-start;
+  }
+
   &__filters-image {
     margin-right: 5px;
   }
@@ -109,8 +114,8 @@
   &__add-to-cart {
     background-color: $primary-color;
     border-radius: 50%;
-    width: 22px;
-    height: 22px;
+    width: 40px;
+    height: 40px;
     padding: 10px;
     cursor: pointer;
 

@@ -4,11 +4,15 @@
   justify-content: center;
   margin: 40px auto;
   max-width: 1440px;
-  gap: 50px;
 
   @media (min-width: 1024px) {
     flex-direction: row;
     margin: 100px auto;
+    gap: 30px;
+  }
+
+  @media (min-width: 1440px) {
+    gap: 0px;
   }
 
   &__main-column {

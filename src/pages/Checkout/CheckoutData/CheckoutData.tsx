@@ -368,7 +368,7 @@ const CheckoutData = ({ totalCost }: CheckoutDataProps): JSX.Element => {
               </Select>
             </FormControl> */}
             <Button className="checkout-info__submit-button" type="submit" width="full">
-              Confirmar pago por {totalCost}€
+              Confirmar pago ( {totalCost}€ )
             </Button>
           </form>
         </Box>
