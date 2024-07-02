@@ -80,8 +80,8 @@ const Header = (): JSX.Element => {
         <div className="header__menu-container" onClick={toogleMenu}>
           <img src={MenuIcon} className="header__icon-menu" />
         </div>
-        <NavLink className="header__link" to="/" title="">
-          <img src={logo} className="header__logo" />
+        <NavLink className="header__link" to="/" title="Enlace a la portada">
+          <img src={logo} className="header__logo" alt="Imagen del logotipo"/>
         </NavLink>
         <div className="header__navigation">
           {mainCategories.map((category) => (
