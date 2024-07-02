@@ -1,0 +1,135 @@
+@import "../../../styles/variables.scss";
+
+.cart-summary {
+  display: flex;
+  flex-direction: column;
+  margin: 0 10px;
+  padding: 0px 0px 20px;
+  align-items: flex-start;
+  border-top: 1px solid #d9d9d9;
+
+  &__balcony {
+    margin: 20px auto 30px;
+
+    @media (min-width: 1024px) {
+      margin: 20px 0 30px;
+    }
+  }
+
+  &__balcony-title {
+    font-size: $size-m;
+    color: $primary-color;
+    text-transform: uppercase;
+
+    @media (min-width: 1024px) {
+      font-size: $size-l;
+    }
+
+    @media (min-width: 1440px) {
+      font-size: $size-xl;
+    }
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    gap: 10px;
+    margin-bottom: 40px;
+  }
+
+  &__item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+    border-bottom: solid $light-grey-color 1px;
+    padding-bottom: 20px;
+    margin-bottom: 10px;
+    width: 100%;
+  }
+
+  &__item-img {
+    max-width: 100px;
+    min-width: 80px;
+    border-radius: 10px;
+  }
+
+  &__item-name {
+    font-size: $size-m;
+    font-weight: 700;
+    color: $primary-color;
+    text-align: left;
+    margin: 5px auto 2px;
+  }
+
+  &__item-price {
+    font-size: $size-s;
+    margin-top: 0;
+    color: $dark-grey-color;
+  }
+
+  &__button-container {
+    display: flex;
+    gap: 10px;
+  }
+
+  &__cost {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    font-size: $size-m;
+    color: $primary-color;
+    margin-bottom: 5px;
+  }
+
+  &__delivery {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    font-size: $size-m;
+    color: $primary-color;
+    padding-bottom: 40px;
+    border-bottom: solid $light-grey-color 1px;
+  }
+
+  &__cost-total {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    font-size: $size-m;
+    color: $primary-color;
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+
+  &__cost-total-title {
+    color: $primary-color;
+    font-size: $size-m;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  &__cost-total-price {
+    color: $primary-color;
+    font-size: $size-m;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  &__delivery-alert {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__delivery-alert-text {
+    font-size: $size-xs;
+    color: $dark-grey-color;
+    margin-bottom: 10px;
+
+    &--Uppercase {
+        text-transform: uppercase;
+    }
+  }
+}
