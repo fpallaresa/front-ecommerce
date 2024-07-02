@@ -109,6 +109,12 @@
     }
   }
 
+  &__error-message {
+    text-align: left;
+    font-size: $size-xs;
+    color: $dark-grey-color;
+  }
+
   &__button-total {
     background-color: $light-blue-color;
     color: $light-color;
