@@ -14,12 +14,34 @@ const APP_BASE_PATH: string = "/product_images/";
 const Cart: React.FC<cartProps> = ({ onClose }): JSX.Element => {
   const initialCart: CartItem[] = JSON.parse(localStorage.getItem("cart") ?? "[]");
   const [cart, setCart] = useState<CartItem[]>(initialCart);
+  const [errorMessages, setErrorMessages] = useState<(string | null)[]>(initialCart.map(() => null));
 
   const handleQuantityChange = (index: number, newQuantity: number): void => {
     if (index >= 0 && index < cart.length) {
       const newCart = [...cart];
-      newCart[index].quantity = Math.max(1, newQuantity);
+      const newErrorMessages = [...errorMessages];
+      const product = newCart[index];
+
+      if (newQuantity < 1) {
+        newCart.splice(index, 1);
+        newErrorMessages.splice(index, 1);
+      } else if (newQuantity > product.stock) {
+        newErrorMessages[index] = "No hay más stock disponible de este producto";
+        setErrorMessages(newErrorMessages);
+
+        setTimeout(() => {
+          const updatedErrorMessages = [...newErrorMessages];
+          updatedErrorMessages[index] = null;
+          setErrorMessages(updatedErrorMessages);
+        }, 3000);
+        return;
+      } else {
+        product.quantity = newQuantity;
+        newErrorMessages[index] = null;
+      }
+
       setCart(newCart);
+      setErrorMessages(newErrorMessages);
       localStorage.setItem("cart", JSON.stringify(newCart));
     }
   };
@@ -43,14 +65,34 @@ const Cart: React.FC<cartProps> = ({ onClose }): JSX.Element => {
               <p className="cart__item-name">{product?.productName}</p>
               <p className="cart__item-price">{product?.productPrice}€</p>
               <div className="cart__button-container">
-                <button className="cart__button-item" onClick={() => { handleQuantityChange(index, product.quantity - 1) }}>
+                <button
+                  className="cart__button-item"
+                  onClick={() => {
+                    handleQuantityChange(index, product.quantity - 1);
+                  }}
+                >
                   -
                 </button>
-                <input type="number" value={product.quantity} name="quantity" required className="cart__input" onChange={(event) => { handleQuantityChange(index, parseInt(event.target.value) || 1) }} />
-                <button className="cart__button-item" onClick={() => { handleQuantityChange(index, product.quantity + 1) }}>
+                <input
+                  type="number"
+                  value={product.quantity}
+                  name="quantity"
+                  required
+                  className="cart__input"
+                  onChange={(event) => {
+                    handleQuantityChange(index, parseInt(event.target.value) || 1);
+                  }}
+                />
+                <button
+                  className="cart__button-item"
+                  onClick={() => {
+                    handleQuantityChange(index, product.quantity + 1);
+                  }}
+                >
                   +
                 </button>
               </div>
+              {errorMessages[index] && <p className="cart__error-message">{errorMessages[index]}</p>}
             </div>
           </div>
         ))}
