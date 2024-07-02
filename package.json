@@ -13,6 +13,11 @@
     "precommit": "npm run lint && npm run build"
   },
   "dependencies": {
+    "@chakra-ui/react": "^2.8.2",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "@stripe/react-stripe-js": "^2.7.2",
+    "@stripe/stripe-js": "^4.0.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -22,6 +27,8 @@
     "@types/react-dom": "^18.2.4",
     "@types/react-slick": "^0.23.13",
     "@types/slick-carousel": "^1.6.40",
+    "braintree-web-drop-in-react": "^1.2.1",
+    "framer-motion": "^11.2.12",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.12.1",

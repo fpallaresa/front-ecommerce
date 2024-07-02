@@ -26,7 +26,7 @@ const BreadcrumbsCategory = ({ categoryData }: BreadcrumbsCategoryProps): JSX.El
             <h2 className="category-page__breadcrumbs-title category-page__breadcrumbs-title--link">{parentCategoryName}</h2>
           </NavLink>
           <span>
-            <img className="category-page__breadcrumbs-separator" src={arrow} alt="" />
+            <img className="category-page__breadcrumbs-separator" src={arrow} alt="Flecha Separador" />
           </span>
           <h1 className="category-page__breadcrumbs-title">{category?.name?.es}</h1>
         </div>
