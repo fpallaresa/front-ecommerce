@@ -19,7 +19,7 @@ const Dropdown: React.FC<DropdownProps> = ({ categories, onClose }): JSX.Element
       <ul className="dropdown__subcategories">
         {children.map(child => (
           <li key={child._id} className="dropdown__subcategories-list">
-            <NavLink className="dropdown__link" to={child.name.es.toLowerCase()} title={child.name.es} >
+            <NavLink className="dropdown__link" to={child.name.es.toLowerCase()} title={child.name.es} onClick={onClose}>
               {child.name.es}
             </NavLink>
             {renderSubcategories(child)}
