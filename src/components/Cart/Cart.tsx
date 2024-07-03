@@ -97,7 +97,7 @@ const Cart: React.FC<cartProps> = ({ onClose }): JSX.Element => {
           </div>
         ))}
       </div>
-      <Link to="/checkout" className="cart__button-total">
+      <Link to="/checkout" className="cart__button-total" onClick={onClose}>
         PAGAR {totalCost}€
       </Link>
     </div>
