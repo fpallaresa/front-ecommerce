@@ -36,7 +36,7 @@
     align-items: flex-start;
     width: 100%;
     gap: 10px;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
   }
 
   &__item {
@@ -79,7 +79,7 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
-    font-size: $size-m;
+    font-size: $size-s;
     color: $primary-color;
     margin-bottom: 5px;
   }
@@ -88,9 +88,9 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
-    font-size: $size-m;
+    font-size: $size-s;
     color: $primary-color;
-    padding-bottom: 40px;
+    padding-bottom: 20px;
     border-bottom: solid $light-grey-color 1px;
   }
 

@@ -1,28 +1,85 @@
+import { useState } from "react";
 import "../CheckoutData/CheckoutData.scss";
-import { Box, FormControl, FormLabel, Input, Select, RadioGroup, Radio, Stack, Button, useToast, Tooltip } from "@chakra-ui/react";
+import { Box, FormControl, FormLabel, Input, Select, RadioGroup, Radio, Stack, Button, Tooltip, FormErrorMessage } from "@chakra-ui/react";
 
 interface CheckoutDataProps {
   totalCost: number | null;
 }
 
 const CheckoutData = ({ totalCost }: CheckoutDataProps): JSX.Element => {
-  const toast = useToast();
+  const [cardNumber, setCardNumber] = useState("");
+  const [expireDate, setExpireDate] = useState("");
+  const [cvv, setCvv] = useState("");
+  const [cardName, setCardName] = useState("");
+  const [errors, setErrors] = useState({
+    cardNumber: "",
+    expireDate: "",
+    cvv: "",
+    cardName: "",
+  });
 
-  const handleSubmit = (e: { preventDefault: () => void; }): void => {
-    e.preventDefault();
-    toast({
-      title: "Compra realizada.",
-      description: "Tu compra ha sido procesada correctamente.",
-      status: "success",
-      duration: 5000,
-      isClosable: true,
-    });
+  const validateCardNumber = (number: string): boolean => {
+    return /^\d{13,18}$/.test(number);
+  };
+  const validateExpireDate = (date: string): boolean => {
+    return /^(0[1-9]|1[0-2])\/\d{2}$/.test(date);
+  };
+  const validateCvv = (cvv: string): boolean => {
+    return /^\d{3}$/.test(cvv);
+  };
+
+  const handleBlur = (field: any): void => {
+    switch (field) {
+      case "cardNumber":
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          cardNumber: validateCardNumber(cardNumber) ? "" : "El número de tarjeta debe tener entre 13 y 18 dígitos.",
+        }));
+        break;
+      case "expireDate":
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          expireDate: validateExpireDate(expireDate) ? "" : "La fecha de caducidad debe tener el formato MM/AA.",
+        }));
+        break;
+      case "cvv":
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          cvv: validateCvv(cvv) ? "" : "El CVV debe tener 3 dígitos.",
+        }));
+        break;
+      case "cardName":
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          cardName: cardName !== "" ? "" : "El nombre del titular es requerido.",
+        }));
+        break;
+      default:
+        break;
+    }
+  };
+
+  const handleSubmit = (): void => {
+    const cardNumberValid = validateCardNumber(cardNumber);
+    const expireDateValid = validateExpireDate(expireDate);
+    const cvvValid = validateCvv(cvv);
+    const cardNameValid = cardName !== "";
+    if (cardNumberValid && expireDateValid && cvvValid && cardNameValid) {
+      console.log("Formulario enviado");
+    } else {
+      setErrors({
+        cardNumber: cardNumberValid ? "" : "El número de tarjeta debe tener entre 13 y 18 dígitos.",
+        expireDate: expireDateValid ? "" : "La fecha de caducidad debe tener el formato MM/AA.",
+        cvv: cvvValid ? "" : "El CVV debe tener 3 dígitos.",
+        cardName: cardNameValid ? "" : "El nombre del titular es requerido.",
+      });
+    }
   };
 
   return (
     <>
       <div className="checkout-info">
-        <Box maxWidth="650px" mx="auto" p={0} mb={10} w="100%" >
+        <Box maxWidth="650px" mx="auto" p={0} mb={10} w="100%">
           <form onSubmit={handleSubmit} className="checkout-info__form">
             <div className="checkout-info__balcony">
               <h3 className="checkout-info__balcony-title">Tu información</h3>
@@ -348,25 +405,26 @@ const CheckoutData = ({ totalCost }: CheckoutDataProps): JSX.Element => {
                 </RadioGroup>
               </Tooltip>
             </FormControl>
-            <FormControl id="cardNumber" isRequired mb={8}>
+            <FormControl id="cardName" isRequired mb={8} isInvalid={!!errors.cardName}>
+              <FormLabel>Nombre del Titular</FormLabel>
+              <Input type="text" placeholder="Escribe nombre y apellido"value={cardName} onChange={(e) => { setCardName(e.target.value) }} onBlur={() => { handleBlur("cardName") }} />
+              <FormErrorMessage>{errors.cardName}</FormErrorMessage>
+            </FormControl>
+            <FormControl id="cardNumber" isRequired mb={8} isInvalid={!!errors.cardNumber}>
               <FormLabel>Número de Tarjeta</FormLabel>
-              <Input type="text" />
+              <Input type="text" placeholder="1234 5678 9012 3456" value={cardNumber} onChange={(e) => { setCardNumber(e.target.value) }} onBlur={() => { handleBlur("cardNumber") }} />
+              <FormErrorMessage>{errors.cardNumber}</FormErrorMessage>
             </FormControl>
-            <FormControl id="expireDate" isRequired mb={8}>
+            <FormControl id="expireDate" isRequired mb={8} isInvalid={!!errors.expireDate}>
               <FormLabel>Fecha de Caducidad</FormLabel>
-              <Input type="text" placeholder="MM/AA" />
+              <Input type="text" placeholder="MM/AA" value={expireDate} onChange={(e) => { setExpireDate(e.target.value) }} onBlur={() => { handleBlur("expireDate") }} />
+              <FormErrorMessage>{errors.expireDate}</FormErrorMessage>
             </FormControl>
-            <FormControl id="cvv" isRequired mb={8}>
+            <FormControl id="cvv" isRequired mb={8} isInvalid={!!errors.cvv}>
               <FormLabel>CVV</FormLabel>
-              <Input type="text" />
+              <Input type="text" placeholder="123"value={cvv} onChange={(e) => { setCvv(e.target.value) }} onBlur={() => { handleBlur("cvv") }} />
+              <FormErrorMessage>{errors.cvv}</FormErrorMessage>
             </FormControl>
-            {/* <FormControl id="delivery" isRequired mb={8}>
-              <FormLabel>Envío</FormLabel>
-              <Select>
-                <option value="estandar">Envío Estándar (10€) - 5-6 días</option>
-                <option value="premium">Envío Premium (10€) - 1 día</option>
-              </Select>
-            </FormControl> */}
             <Button className="checkout-info__submit-button" type="submit" width="full">
               Confirmar pago ( {totalCost}€ )
             </Button>
