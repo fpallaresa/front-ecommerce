@@ -1,0 +1,30 @@
+.checkout-success-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 40px auto;
+    max-width: 1440px;
+  
+    @media (min-width: 1024px) {
+      flex-direction: row;
+      margin: 100px auto;
+      gap: 30px;
+    }
+  
+    @media (min-width: 1440px) {
+      gap: 0px;
+    }
+  
+    &__main-column {
+      @media (min-width: 1024px) {
+        width: calc(66% - 30px);
+      }
+    }
+  
+    &__side-column {
+      @media (min-width: 1024px) {
+        width: calc(33% - 30px);
+      }
+    }
+  }
+  

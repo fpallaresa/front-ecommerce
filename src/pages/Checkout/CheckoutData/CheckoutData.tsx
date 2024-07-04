@@ -66,6 +66,10 @@ const CheckoutData = ({ formData, onChange }: CheckoutDataProps): JSX.Element =>
     onChange({ paymentMethod: value });
   };
 
+  const handleCountryChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
+    onChange({ country: event.target.value });
+  };
+
   return (
     <>
       <div className="checkout-info__balcony">
@@ -171,12 +175,12 @@ const CheckoutData = ({ formData, onChange }: CheckoutDataProps): JSX.Element =>
           <Select
             placeholder="Selecciona un país"
             value={country}
-            onChange={(e) => {
-              onChange({ country: e.target.value });
-            }}
+            onChange={handleCountryChange}
           >
-            {Object.values(Country).map((country) => (
-              <option key={country}>{country}</option>
+            {Object.keys(Country).map((key) => (
+              <option key={key} value={key}>
+                {Country[key as keyof typeof Country]}
+              </option>
             ))}
           </Select>
         </Tooltip>
@@ -213,7 +217,12 @@ const CheckoutData = ({ formData, onChange }: CheckoutDataProps): JSX.Element =>
       <FormControl id="paymentMethod" isRequired mb={8}>
         <FormLabel>Forma de Pago</FormLabel>
         <Tooltip label="Selecciona tu método de pago preferido" aria-label="Forma de Pago Tooltip" placement="top-start" hasArrow arrowSize={15}>
-          <RadioGroup defaultValue={paymentMethod} onChange={(value) => { handlePaymentMethodChange(value) }}>
+          <RadioGroup
+            defaultValue={paymentMethod}
+            onChange={(value) => {
+              handlePaymentMethodChange(value);
+            }}
+          >
             <Stack flexDirection="column">
               <Radio value="braintree">Tarjeta de Crédito (Braintree)</Radio>
               <Radio value="stripe">Tarjeta de Crédito (Stripe)</Radio>
