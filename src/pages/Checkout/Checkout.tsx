@@ -152,6 +152,8 @@ const Checkout = (): JSX.Element => {
             country: formData.country,
             locality: formData.locality,
             province: formData.province,
+            productList: formData.productList,
+            price: formData.price,
           },
         });
       } else {
