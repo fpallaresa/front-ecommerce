@@ -26,7 +26,6 @@ const CheckoutSuccessPage = (): JSX.Element => {
         <span className="checkout-success-page__title checkout-success-page__title--bold">
           {firstName} {lastName}
         </span>
-        .
       </h1>
       <h2 className="checkout-success-page__subtitle">Hemos recibido tu pedido y será enviado a la dirección proporcionada. A continuación te adjuntamos la información de tu pedido:</h2>
       <div className="checkout-success-page__info-container">
