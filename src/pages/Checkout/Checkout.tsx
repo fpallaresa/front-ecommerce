@@ -5,6 +5,36 @@ import CheckoutData from "./CheckoutData/CheckoutData";
 import { Box } from "@chakra-ui/react";
 import CartSummaryCheckout from "./CartSummaryCheckout/CartSummaryCheckout";
 import { CartItem } from "../../models/Product";
+import useBraintreePayment from "../../hooks/BraintreePayment";
+import useStripePayment from "../../hooks/StripePayment";
+import { useNavigate } from "react-router-dom";
+
+interface FormData {
+  firstName: string;
+  lastName: string;
+  secondLastName: string;
+  address: string;
+  postalCode: string;
+  country: string;
+  locality: string;
+  province: string;
+  phone: string;
+  email: string;
+  paymentMethod: string;
+  price: number;
+  productList: {
+    sku: string;
+    price: number;
+    quantity: number;
+    title: string;
+    totalPrice: number;
+  }[];
+  cardNumber: string;
+  expireDate: string;
+  cvv: string;
+  cardName: string;
+  externalTransactionId: string;
+}
 
 const Checkout = (): JSX.Element => {
   const URL_API_CHECKOUT = `${process.env.REACT_APP_API_URL as string}/checkout`;
@@ -18,7 +48,7 @@ const Checkout = (): JSX.Element => {
     }, 0);
   };
   const [cart] = useState<CartItem[]>(initialCart);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     firstName: "",
     lastName: "",
     secondLastName: "",
@@ -42,11 +72,18 @@ const Checkout = (): JSX.Element => {
     expireDate: "",
     cvv: "",
     cardName: "",
+    externalTransactionId: "",
   });
+
   const [error, setError] = useState("");
   const formRef = useRef<HTMLFormElement>(null);
 
-  const handleCheckoutDataChange = (data: any): void => {
+  const { processPayment: processBraintreePayment } = useBraintreePayment();
+  const { processPayment: processStripePayment } = useStripePayment();
+
+  const navigate = useNavigate();
+
+  const handleCheckoutDataChange = (data: Partial<FormData>): void => {
     setFormData({
       ...formData,
       ...data,
@@ -70,10 +107,59 @@ const Checkout = (): JSX.Element => {
       }
 
       const data = await response.json();
-      console.log("Checkout creado con éxito:", data);
+      console.log("Checkout inicial creado con éxito:", data);
+
+      const { _id } = data as { _id: string; };
+
+      let paymentResult;
+      if (formData.paymentMethod === "braintree") {
+        paymentResult = await processBraintreePayment(formData);
+      } else if (formData.paymentMethod === "stripe") {
+        paymentResult = await processStripePayment(formData);
+      } else {
+        setError("Método de pago no soportado");
+        return;
+      }
+
+      if (paymentResult.success) {
+        const updatedFormData = {
+          ...formData,
+          externalTransactionId: paymentResult.data?.transaction?.id || "",
+        };
+
+        const updateResponse = await fetch(`${URL_API_CHECKOUT}/${_id.toString()}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(updatedFormData),
+        });
+
+        if (!updateResponse.ok) {
+          throw new Error("Error al actualizar el checkout con información del pago");
+        }
+
+        const updateData = await updateResponse.json();
+        console.log("Checkout actualizado con éxito:", updateData);
+
+        navigate("/checkout/success", {
+          state: {
+            _id,
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+            address: formData.address,
+            postalCode: formData.postalCode,
+            country: formData.country,
+            locality: formData.locality,
+            province: formData.province,
+          },
+        });
+      } else {
+        setError(paymentResult.error ?? "Error en el proceso de pago");
+      }
     } catch (error) {
-      setError("Error al crear el checkout");
-      console.error("Error al crear el checkout:", error);
+      setError("Error en el proceso de checkout");
+      console.error("Error en el proceso de checkout:", error);
     }
   };
 

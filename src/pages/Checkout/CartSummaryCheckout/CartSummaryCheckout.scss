@@ -119,14 +119,13 @@
   &__submit-button {
     background-color: $light-blue-color!important;
     color: $light-color!important;
-    max-width: 300px;
     margin: 0 auto 30px;
     border: none;
   }
 
   &__error {
     margin: 0 auto 10px;
-    color: $dark-grey-color;
+    color: $error-color;
   }
 
   &__cost-total-price {
