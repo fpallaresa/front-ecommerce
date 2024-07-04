@@ -1,8 +1,8 @@
 import "./Checkout.scss";
 import "./CheckoutData/CheckoutData.scss";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import CheckoutData from "./CheckoutData/CheckoutData";
-import { Box, Button } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import CartSummaryCheckout from "./CartSummaryCheckout/CartSummaryCheckout";
 import { CartItem } from "../../models/Product";
 
@@ -44,6 +44,7 @@ const Checkout = (): JSX.Element => {
     cardName: "",
   });
   const [error, setError] = useState("");
+  const formRef = useRef<HTMLFormElement>(null);
 
   const handleCheckoutDataChange = (data: any): void => {
     setFormData({
@@ -70,11 +71,15 @@ const Checkout = (): JSX.Element => {
 
       const data = await response.json();
       console.log("Checkout creado con éxito:", data);
-      // Aquí podrías manejar la respuesta exitosa del backend (por ejemplo, redirigir a una página de confirmación)
     } catch (error) {
       setError("Error al crear el checkout");
       console.error("Error al crear el checkout:", error);
-      // Aquí podrías manejar el error (por ejemplo, mostrar un mensaje de error al usuario)
+    }
+  };
+
+  const handleButtonClick = (): void => {
+    if (formRef.current) {
+      formRef.current.requestSubmit();
     }
   };
 
@@ -83,18 +88,14 @@ const Checkout = (): JSX.Element => {
       <div className="checkout__main-column">
         <div className="checkout-info">
           <Box maxWidth="650px" mx="auto" p={0} mb={10} w="100%">
-            <form onSubmit={handleSubmit} className="checkout-info__form">
+            <form ref={formRef} onSubmit={handleSubmit} className="checkout-info__form">
               <CheckoutData formData={formData} onChange={handleCheckoutDataChange} />
-              <Button className="checkout-info__submit-button" type="submit" width="full">
-                Confirmar pago ( {formData.price}€ )
-              </Button>
-              {error && <p>{error}</p>}
             </form>
           </Box>
         </div>
       </div>
       <div className="checkout__side-column">
-        <CartSummaryCheckout cart={cart} totalCost={formData.price}></CartSummaryCheckout>
+        <CartSummaryCheckout cart={cart} totalCost={formData.price} error={error} onClick={handleButtonClick}></CartSummaryCheckout>
       </div>
     </div>
   );

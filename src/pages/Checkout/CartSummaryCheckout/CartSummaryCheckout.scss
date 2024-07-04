@@ -8,8 +8,13 @@
   align-items: flex-start;
   border-top: 1px solid #d9d9d9;
 
+  @media (min-width: 1024px) {
+    position: sticky;
+    top: 0px;
+  }
+
   &__balcony {
-    margin: 20px auto 30px;
+    margin: 20px 0 30px;
 
     @media (min-width: 1024px) {
       margin: 20px 0 30px;
@@ -109,6 +114,19 @@
     font-size: $size-m;
     text-transform: uppercase;
     font-weight: 700;
+  }
+
+  &__submit-button {
+    background-color: $light-blue-color!important;
+    color: $light-color!important;
+    max-width: 300px;
+    margin: 0 auto 30px;
+    border: none;
+  }
+
+  &__error {
+    margin: 0 auto 10px;
+    color: $dark-grey-color;
   }
 
   &__cost-total-price {

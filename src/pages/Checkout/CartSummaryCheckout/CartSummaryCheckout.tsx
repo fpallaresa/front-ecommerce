@@ -1,15 +1,18 @@
 import "../CartSummaryCheckout/CartSummaryCheckout.scss";
 import dummy from "../../../assets/dummy.png";
 import { CartItem } from "../../../models/Product";
+import { Button } from "@chakra-ui/react";
 
 const APP_BASE_PATH: string = "/product_images/";
 
 interface CartProps {
   cart: CartItem[];
   totalCost: number | null;
+  onClick: (data: any) => void;
+  error: string;
 }
 
-const CartSummaryCheckout = ({ cart, totalCost }: CartProps): JSX.Element => {
+const CartSummaryCheckout = ({ cart, totalCost, onClick, error }: CartProps): JSX.Element => {
   return (
     <div className="cart-summary">
       <div className="cart-summary__balcony">
@@ -39,6 +42,10 @@ const CartSummaryCheckout = ({ cart, totalCost }: CartProps): JSX.Element => {
         <span className="cart-summary__cost-total-title">Total</span>
         <span className="cart-summary__cost-total-price">{totalCost}€</span>
       </div>
+      <Button className="cart-summary__submit-button" onClick={onClick} width="full">
+        Confirmar pago ( {totalCost}€ )
+      </Button>
+      {error && <p className="cart-summary__error">{error}</p>}
       <div className="cart-summary__delivery-alert">
         <p className="cart-summary__delivery-alert-text">Nuestras devoluciones son gratuitas y sencillas. Si algo no está del todo bien, tienes 28 días para devolverlo. Lee más en nuestra política de devolución y reembolso.</p>
         <p className="cart-summary__delivery-alert-text cart-summary__delivery-alert-text--Uppercase">Envíos y devoluciones gratuitas por tiempo limitado.</p>
