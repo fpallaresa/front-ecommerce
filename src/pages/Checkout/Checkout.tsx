@@ -9,6 +9,7 @@ import { CartItem } from "../../models/Product";
 import useBraintreePayment from "../../hooks/BraintreePayment";
 import useStripePayment from "../../hooks/StripePayment";
 import { useNavigate } from "react-router-dom";
+import { useCart } from "../../CartContext";
 
 interface FormData {
   firstName: string;
@@ -83,6 +84,7 @@ const Checkout = (): JSX.Element => {
   const { processPayment: processStripePayment } = useStripePayment();
   const [checkoutId, setCheckoutId] = useState(localStorage.getItem("checkoutId") ?? "");
   const navigate = useNavigate();
+  const { clearCart } = useCart();
 
   const handleCheckoutDataChange = (data: Partial<FormData>): void => {
     setFormData({
@@ -157,7 +159,7 @@ const Checkout = (): JSX.Element => {
 
         localStorage.setItem("cart", JSON.stringify([]));
         localStorage.removeItem("checkoutId");
-
+        clearCart();
         navigate("/checkout/success", {
           state: {
             checkoutId: currentCheckoutId,
