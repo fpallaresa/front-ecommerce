@@ -137,4 +137,8 @@
     outline: none;
     box-shadow: $blue-shadow;
   }
+  &__empty-message{
+    margin: 0 auto;
+    text-decoration: underline;
+  }
 }

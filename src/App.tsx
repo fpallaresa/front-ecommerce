@@ -7,22 +7,25 @@ import Header from "./components/Header/Header";
 import Checkout from "./pages/Checkout/Checkout";
 import { ChakraProvider } from "@chakra-ui/react";
 import CheckoutSuccessPage from "./pages/Checkout/CheckoutSuccessPage";
+import { CartProvider } from "./CartContext";
 
 const App = (): JSX.Element => {
   return (
     <ChakraProvider>
-      <div className="app">
-        <HashRouter>
-          <Header></Header>
-          <Routes>
-            <Route path="/" element={<HomePage></HomePage>}></Route>
-            <Route path="/:categoryName" element={<CategoryPage></CategoryPage>}></Route>
-            <Route path="/checkout" element={<Checkout></Checkout>}></Route>
-            <Route path="/checkout/success" element={<CheckoutSuccessPage></CheckoutSuccessPage>}></Route>
-          </Routes>
-        </HashRouter>
-        <Footer></Footer>
-      </div>
+      <CartProvider>
+        <div className="app">
+          <HashRouter>
+            <Header></Header>
+            <Routes>
+              <Route path="/" element={<HomePage></HomePage>}></Route>
+              <Route path="/:categoryName" element={<CategoryPage></CategoryPage>}></Route>
+              <Route path="/checkout" element={<Checkout></Checkout>}></Route>
+              <Route path="/checkout/success" element={<CheckoutSuccessPage></CheckoutSuccessPage>}></Route>
+            </Routes>
+          </HashRouter>
+          <Footer></Footer>
+        </div>
+      </CartProvider>
     </ChakraProvider>
   );
 };

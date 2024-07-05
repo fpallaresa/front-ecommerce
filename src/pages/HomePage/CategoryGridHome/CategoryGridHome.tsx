@@ -3,11 +3,13 @@ import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { CartItem, Product } from "../../../models/Product";
 import addtocart from "../../../assets/addtocart.svg";
+import { useCart } from "../../../CartContext";
 
 const CategoryGridHome = (): JSX.Element => {
   const API_URL_PRODUCT_BY_CATEGORY = `${process.env.REACT_APP_API_URL as string}/product/featured?limit=6`;
   const [products, setProducts] = useState<Product[]>([]);
   const [message, setMessage] = useState<string | null>(null);
+  const { updateCart } = useCart();
 
   useEffect(() => {
     fetchProducts();
@@ -60,24 +62,8 @@ const CategoryGridHome = (): JSX.Element => {
 
     localStorage.setItem("cart", JSON.stringify(cart));
     window.dispatchEvent(new Event("storage"));
-    updateCartIndicador();
+    updateCart();
   };
-
-  const updateCartIndicador = (): void => {
-    const cart: CartItem[] = JSON.parse(localStorage.getItem("cart") ?? "[]");
-    const cartIndicator = document.getElementById("cart-indicator");
-    if (cartIndicator) {
-      let numberOfProducts = 0;
-      cart.forEach((product) => {
-        numberOfProducts += product.quantity;
-      });
-      cartIndicator.textContent = numberOfProducts.toString();
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener("DOMContentLoaded", updateCartIndicador);
-  }, []);
 
   return (
     <div className="category-grid">
