@@ -2,6 +2,7 @@ import "./Checkout.scss";
 import "./CheckoutData/CheckoutData.scss";
 import React, { useRef, useState } from "react";
 import CheckoutData from "./CheckoutData/CheckoutData";
+import CheckoutDataForm from "./CheckoutData/CheckoutDataForm";
 import { Box } from "@chakra-ui/react";
 import CartSummaryCheckout from "./CartSummaryCheckout/CartSummaryCheckout";
 import { CartItem } from "../../models/Product";
@@ -192,6 +193,7 @@ const Checkout = (): JSX.Element => {
         <div className="checkout-info">
           <Box maxWidth="650px" mx="auto" p={0} mb={10} w="100%">
             <form ref={formRef} onSubmit={handleSubmit} className="checkout-info__form">
+              <CheckoutDataForm onChange={handleCheckoutDataChange} formData={formData}></CheckoutDataForm>
               <CheckoutData formData={formData} onChange={handleCheckoutDataChange} />
             </form>
           </Box>
