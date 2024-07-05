@@ -124,7 +124,7 @@ const Checkout = (): JSX.Element => {
       if (paymentResult.success) {
         const updatedFormData = {
           ...formData,
-          externalTransactionId: paymentResult.data?.transaction?.id || "",
+          externalTransactionId: paymentResult.data?.transaction?.id || paymentResult.data?.paymentIntent?.id || "",
         };
 
         const updateResponse = await fetch(`${URL_API_CHECKOUT}/${_id.toString()}`, {
