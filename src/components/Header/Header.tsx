@@ -8,8 +8,9 @@ import closeBlack from "../../assets/close-black.svg";
 import { NavLink } from "react-router-dom";
 import Dropdown from "../Dropdown/Dropdown";
 import { Category } from "../../models/Category";
-import { Product } from "../../models/Product";
+// import { Product } from "../../models/Product";
 import Cart from "../Cart/Cart";
+import { useCart } from "../../CartContext";
 
 const Header = (): JSX.Element => {
   const API_URL_CATEGORY = `${process.env.REACT_APP_API_URL as string}/categorie`;
@@ -17,22 +18,11 @@ const Header = (): JSX.Element => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [cartCount, setCartCount] = useState<number>(0);
   const mainCategories = categories.filter((category) => !category.parentCategory);
+  const { cartCount } = useCart();
 
   useEffect(() => {
     fetchCategories();
-    updateCartCount();
-
-    const handleStorageChange = (): void => {
-      updateCartCount();
-    };
-
-    window.addEventListener("storage", handleStorageChange);
-
-    return () => {
-      window.removeEventListener("storage", handleStorageChange);
-    };
   }, []);
 
   const fetchCategories = (): void => {
@@ -57,11 +47,6 @@ const Header = (): JSX.Element => {
       });
   };
 
-  const updateCartCount = (): void => {
-    const cart: Product[] = JSON.parse(localStorage.getItem("cart") ?? "[]");
-    setCartCount(cart.length);
-  };
-
   const toogleMenu = (): void => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -81,7 +66,7 @@ const Header = (): JSX.Element => {
           <img src={MenuIcon} className="header__icon-menu" />
         </div>
         <NavLink className="header__link" to="/" title="Enlace a la portada">
-          <img src={logo} className="header__logo" alt="Imagen del logotipo"/>
+          <img src={logo} className="header__logo" alt="Imagen del logotipo" />
         </NavLink>
         <div className="header__navigation">
           {mainCategories.map((category) => (

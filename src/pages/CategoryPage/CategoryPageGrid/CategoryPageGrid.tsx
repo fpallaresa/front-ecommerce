@@ -5,7 +5,8 @@ import filter from "../../../assets/filter.svg";
 import dummy from "../../../assets/dummy.png";
 import addtocart from "../../../assets/addtocart.svg";
 import { Product, CartItem } from "../../../models/Product";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useCart } from "../../../CartContext";
 
 interface ProductCategoryProps {
   categoryProductData: Product[] | null;
@@ -17,6 +18,7 @@ const APP_BASE_PATH: string = "/product_images/";
 const GridCategoryPage = ({ categoryProductData, totalProducts }: ProductCategoryProps): JSX.Element => {
   // Alerta de confirmación de que el producto se ha agregado al carrito
   const [message, setMessage] = useState<string | null>(null);
+  const { updateCart } = useCart();
 
   const addToCart = (product: Product, skuId: string): void => {
     const cart: CartItem[] = JSON.parse(localStorage.getItem("cart") ?? "[]");
@@ -43,27 +45,12 @@ const GridCategoryPage = ({ categoryProductData, totalProducts }: ProductCategor
 
     localStorage.setItem("cart", JSON.stringify(cart));
     window.dispatchEvent(new Event("storage"));
-    updateCartIndicador();
+    updateCart();
     setMessage("¡El producto ha sido agregado al carrito!");
     setTimeout(() => {
       setMessage(null);
     }, 2000);
   };
-
-  const updateCartIndicador = (): void => {
-    const cart: CartItem[] = JSON.parse(localStorage.getItem("cart") ?? "[]");
-    const cartIndicator = document.getElementById("cart-indicator");
-    if (cartIndicator) {
-      let numberOfProducts = 0;
-      cart.forEach((product) => {
-        numberOfProducts += product.quantity;
-      });
-      cartIndicator.textContent = numberOfProducts.toString();
-    }
-  };
-  useEffect(() => {
-    document.addEventListener("DOMContentLoaded", updateCartIndicador);
-  }, []);
 
   return (
     <div className="category-page-grid">
