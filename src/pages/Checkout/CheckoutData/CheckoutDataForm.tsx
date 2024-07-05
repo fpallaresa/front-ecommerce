@@ -153,9 +153,6 @@ const CheckoutDataForm = ({ formData, onChange }: CheckoutDataFormProps): JSX.El
           />
         </Tooltip>
       </FormControl>
-      <div className="checkout-info__balcony checkout-info__balcony--second">
-        <h3 className="checkout-info__balcony-title">Pago</h3>
-      </div>
     </>
   );
 };
