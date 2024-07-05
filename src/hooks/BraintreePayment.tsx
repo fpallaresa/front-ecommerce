@@ -23,6 +23,19 @@ interface PaymentResult {
   error?: string;
 }
 
+const translateError = (error: string): string => {
+  if (error.includes("payment_method_nonce")) {
+    return "El número de tarjeta de crédito no es válida. Revise la numeración o pruebe con otra tarjeta.";
+  }
+
+  switch (error) {
+    case "Transaction failed":
+      return "La transacción ha fallado.";
+    default:
+      return "Hubo un error en la transacción.";
+  }
+};
+
 const useBraintreePayment = (): { processPayment: (formData: FormData) => Promise<PaymentResult>; error: string; } => {
   const [error, setError] = useState("");
 
@@ -46,7 +59,7 @@ const useBraintreePayment = (): { processPayment: (formData: FormData) => Promis
       locality: formData.locality,
       region: formData.province,
       postalCode: formData.postalCode,
-      countryName: formData.country
+      countryName: formData.country,
     };
 
     try {
@@ -63,12 +76,14 @@ const useBraintreePayment = (): { processPayment: (formData: FormData) => Promis
       if (data.success) {
         return { success: true, data };
       } else {
-        setError(data.message);
-        return { success: false, error: data.message };
+        const translatedError = translateError(data.message);
+        setError(translatedError);
+        return { success: false, error: translatedError };
       }
     } catch (error) {
-      setError("Error en la transacción");
-      return { success: false, error: "Error en la transacción" };
+      const translatedError = translateError("Error en la transacción");
+      setError(translatedError);
+      return { success: false, error: translatedError };
     }
   };
 
