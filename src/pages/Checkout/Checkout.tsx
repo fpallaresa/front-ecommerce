@@ -47,6 +47,7 @@ const Checkout = (): JSX.Element => {
       return total + price * qty;
     }, 0);
   };
+
   const [cart] = useState<CartItem[]>(initialCart);
   const [formData, setFormData] = useState<FormData>({
     firstName: "",
@@ -77,10 +78,9 @@ const Checkout = (): JSX.Element => {
 
   const [error, setError] = useState("");
   const formRef = useRef<HTMLFormElement>(null);
-
   const { processPayment: processBraintreePayment } = useBraintreePayment();
   const { processPayment: processStripePayment } = useStripePayment();
-
+  const [checkoutId, setCheckoutId] = useState(localStorage.getItem("checkoutId") ?? "");
   const navigate = useNavigate();
 
   const handleCheckoutDataChange = (data: Partial<FormData>): void => {
@@ -90,26 +90,51 @@ const Checkout = (): JSX.Element => {
     });
   };
 
+  const createCheckout = async (): Promise<string> => {
+    const response = await fetch(URL_API_CHECKOUT, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+
+    if (!response.ok) {
+      throw new Error("Error al crear el checkout");
+    }
+
+    const data = await response.json();
+    const { _id } = data as { _id: string; };
+    setCheckoutId(_id);
+    localStorage.setItem("checkoutId", JSON.stringify(_id));
+    return _id;
+  };
+
+  const updateCheckout = async (updatedFormData: FormData, id: string): Promise<void> => {
+    const updateResponse = await fetch(`${URL_API_CHECKOUT}/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedFormData),
+    });
+
+    if (!updateResponse.ok) {
+      throw new Error("Error al actualizar el checkout con información del pago");
+    }
+
+    const updateData = await updateResponse.json();
+    console.log("Checkout actualizado con éxito:", updateData);
+  };
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
 
     try {
-      const response = await fetch(URL_API_CHECKOUT, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (!response.ok) {
-        throw new Error("Error al crear el checkout");
+      let currentCheckoutId = checkoutId;
+      if (checkoutId === "") {
+        currentCheckoutId = await createCheckout();
       }
-
-      const data = await response.json();
-      console.log("Checkout inicial creado con éxito:", data);
-
-      const { _id } = data as { _id: string; };
 
       let paymentResult;
       if (formData.paymentMethod === "braintree") {
@@ -127,24 +152,14 @@ const Checkout = (): JSX.Element => {
           externalTransactionId: paymentResult.data?.transaction?.id || paymentResult.data?.paymentIntent?.id || "",
         };
 
-        const updateResponse = await fetch(`${URL_API_CHECKOUT}/${_id.toString()}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(updatedFormData),
-        });
+        await updateCheckout(updatedFormData, currentCheckoutId);
 
-        if (!updateResponse.ok) {
-          throw new Error("Error al actualizar el checkout con información del pago");
-        }
-
-        const updateData = await updateResponse.json();
-        console.log("Checkout actualizado con éxito:", updateData);
+        localStorage.setItem("cart", JSON.stringify([]));
+        localStorage.removeItem("checkoutId");
 
         navigate("/checkout/success", {
           state: {
-            _id,
+            checkoutId: currentCheckoutId,
             firstName: formData.firstName,
             lastName: formData.lastName,
             address: formData.address,
