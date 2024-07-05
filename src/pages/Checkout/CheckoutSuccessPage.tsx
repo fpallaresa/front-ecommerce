@@ -13,8 +13,8 @@ interface Product {
 
 const CheckoutSuccessPage = (): JSX.Element => {
   const location = useLocation();
-  const { _id, firstName, lastName, address, postalCode, country, locality, province, productList, price } = location.state as {
-    _id: string;
+  const { checkoutId, firstName, lastName, address, postalCode, country, locality, province, productList, price } = location.state as {
+    checkoutId: string;
     firstName: string;
     lastName: string;
     address: string;
@@ -41,7 +41,7 @@ const CheckoutSuccessPage = (): JSX.Element => {
       <div className="checkout-success-page__info-container">
         <div className="checkout-success-page__info-delivery">
           <p className="checkout-success-page__text">Número de pedido:</p>
-          <span className="checkout-success-page__info checkout-success-page__info--bold">{_id}</span>
+          <span className="checkout-success-page__info checkout-success-page__info--bold">{checkoutId}</span>
           <p className="checkout-success-page__text">Dirección de envío:</p>
           <span className="checkout-success-page__info checkout-success-page__info--bold">{address}</span>
           <p className="checkout-success-page__text">Localidad:</p>
