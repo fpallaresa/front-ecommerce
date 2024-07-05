@@ -1,7 +1,7 @@
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "./CheckoutSuccessPage.scss";
 import { Icon } from "@chakra-ui/react";
-import { CheckCircleIcon } from "@chakra-ui/icons";
+import { CheckCircleIcon, ArrowBackIcon } from "@chakra-ui/icons";
 
 interface Product {
   sku: string;
@@ -39,54 +39,42 @@ const CheckoutSuccessPage = (): JSX.Element => {
       </h1>
       <h2 className="checkout-success-page__subtitle">Hemos recibido tu pedido y será enviado a la dirección proporcionada. A continuación te adjuntamos la información de tu pedido:</h2>
       <div className="checkout-success-page__info-container">
-        <p className="checkout-success-page__text">
-          Número de pedido:
+        <div className="checkout-success-page__info-delivery">
+          <p className="checkout-success-page__text">Número de pedido:</p>
           <span className="checkout-success-page__info checkout-success-page__info--bold">{_id}</span>
-        </p>
-        <p className="checkout-success-page__text">
-          Dirección de envío:
+          <p className="checkout-success-page__text">Dirección de envío:</p>
           <span className="checkout-success-page__info checkout-success-page__info--bold">{address}</span>
-        </p>
-        <p className="checkout-success-page__text">
-          Localidad:
+          <p className="checkout-success-page__text">Localidad:</p>
           <span className="checkout-success-page__info checkout-success-page__info--bold">{locality}</span>
-        </p>
-        <p className="checkout-success-page__text">
-          Provincia:
+          <p className="checkout-success-page__text">Provincia:</p>
           <span className="checkout-success-page__info checkout-success-page__info--bold">{province}</span>
-        </p>
-        <p className="checkout-success-page__text">
-          Código postal:
+          <p className="checkout-success-page__text">Código postal:</p>
           <span className="checkout-success-page__info checkout-success-page__info--bold">{postalCode}</span>
-        </p>
-        <p className="checkout-success-page__text">
-          País:
+          <p className="checkout-success-page__text">País:</p>
           <span className="checkout-success-page__info checkout-success-page__info--bold">{country}</span>
-        </p>
+        </div>
         <div className="checkout-success-page__products">
           <p className="checkout-success-page__text">Listado de productos:</p>
           <ul>
             {productList.map((product, index) => (
               <li key={index} className="checkout-success-page__product-item">
-                {product.title} - {product.quantity} x {product.price}€ = {product.totalPrice}€
+                <span className="checkout-success-page__product-item-feature">{product.title}</span>
+                <span className="checkout-success-page__product-item-quantity">Unidades: {product.quantity}</span>
+                <span className="checkout-success-page__product-item-unity-price">Precio unitario: {product.price}</span>
               </li>
             ))}
           </ul>
+          <p className="checkout-success-page__text">Valor del pedido:</p>
+          <span className="checkout-success-page__info checkout-success-page__info--bold">{price}€</span>
+          <p className="checkout-success-page__text">Coste de la entrega:</p> <span className="checkout-success-page__info checkout-success-page__info--bold">Gratis</span>
+          <p className="checkout-success-page__text">Precio total:</p>
+          <span className="checkout-success-page__info checkout-success-page__info--bold">{price}€</span>
         </div>
-        <p className="checkout-success-page__text">
-          Valor del pedido:
-          <span className="checkout-success-page__info checkout-success-page__info--bold">{price}€</span>
-        </p>
-        <p className="checkout-success-page__text">
-          Coste de la entrega:
-          <span className="checkout-success-page__info checkout-success-page__info--bold">Gratis</span>
-        </p>
-        <p className="checkout-success-page__text">
-          Precio total:
-          <span className="checkout-success-page__info checkout-success-page__info--bold">{price}€</span>
-        </p>
-        npm
       </div>
+      <Link className="checkout-success-page__back-button" to={"/"}>
+        <Icon className="checkout-success-page__back-button-icon" as={ArrowBackIcon} color="#031732" w={4} h={4} />
+        Volver a la tienda
+      </Link>
     </div>
   );
 };
