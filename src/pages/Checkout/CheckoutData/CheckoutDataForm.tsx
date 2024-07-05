@@ -1,6 +1,7 @@
-import { FormControl, FormLabel, Input, Select, Tooltip } from "@chakra-ui/react";
+import { FormControl, FormErrorMessage, FormLabel, Input, Select, Tooltip } from "@chakra-ui/react";
 import { Province } from "./province.enum";
 import { Country } from "./country.enum";
+import { useState } from "react";
 
 interface CheckoutDataFormProps {
   formData: any;
@@ -13,9 +14,29 @@ const CheckoutDataForm = ({ formData, onChange }: CheckoutDataFormProps): JSX.El
   const handleCountryChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
     onChange({ country: event.target.value });
   };
-  //   const validatePhone = (phone: string): void => {
-  //     const phoneRegex = /^(\+\d{1,3}[- ]?)?\d{10,15}$/;
-  //   };
+  const [errors, setErrors] = useState({
+    phone: "",
+  });
+  const validatePhone = (phone: string): boolean => {
+    const phoneRegex = /^\d{9,15}$/;
+
+    if (!phoneRegex.test(phone)) {
+      return false;
+    }
+
+    return true;
+  };
+
+  const handleBlur = (field: string): void => {
+    if (field === "phone") {
+      const isValid = validatePhone(phone);
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        phone: isValid ? "" : "El número de teléfono no es válido. Debe tener mínimo 9 dígitos.",
+      }));
+    }
+  };
+
   return (
     <>
       <div className="checkout-info__balcony">
@@ -127,7 +148,7 @@ const CheckoutDataForm = ({ formData, onChange }: CheckoutDataFormProps): JSX.El
           </Select>
         </Tooltip>
       </FormControl>
-      <FormControl id="phoneNumber" isRequired mb={8}>
+      <FormControl id="phoneNumber" isRequired mb={8} isInvalid={errors.phone !== ""}>
         <FormLabel>Teléfono</FormLabel>
         <Tooltip label="Escribe tu número de teléfono. No olvides incluir el prefijo. Por ejemplo, en España sería +34 999 888 777" aria-label="Teléfono Tooltip" placement="top" hasArrow arrowSize={15}>
           <Input
@@ -137,10 +158,14 @@ const CheckoutDataForm = ({ formData, onChange }: CheckoutDataFormProps): JSX.El
             onChange={(e) => {
               onChange({ phone: e.target.value });
             }}
+            onBlur={() => {
+              handleBlur("phone");
+            }}
           />
         </Tooltip>
+        <FormErrorMessage>{errors.phone}</FormErrorMessage>
       </FormControl>
-      <FormControl id="email" isRequired mb={8}>
+      <FormControl id="email" isRequired mb={8} >
         <FormLabel>Email</FormLabel>
         <Tooltip label="Escribe tu dirección de correo electrónico" aria-label="Email Tooltip" placement="top" hasArrow arrowSize={15}>
           <Input
