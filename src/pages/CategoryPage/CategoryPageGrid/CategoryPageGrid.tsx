@@ -18,7 +18,7 @@ const APP_BASE_PATH: string = "/product_images/";
 const GridCategoryPage = ({ categoryProductData, totalProducts }: ProductCategoryProps): JSX.Element => {
   // Alerta de confirmación de que el producto se ha agregado al carrito
   const [message, setMessage] = useState<string | null>(null);
-  const { updateCart } = useCart();
+  const { updateCart, updateCartItems } = useCart();
 
   const addToCart = (product: Product, skuId: string): void => {
     const cart: CartItem[] = JSON.parse(localStorage.getItem("cart") ?? "[]");
@@ -46,6 +46,7 @@ const GridCategoryPage = ({ categoryProductData, totalProducts }: ProductCategor
     localStorage.setItem("cart", JSON.stringify(cart));
     window.dispatchEvent(new Event("storage"));
     updateCart();
+    updateCartItems();
     setMessage("¡El producto ha sido agregado al carrito!");
     setTimeout(() => {
       setMessage(null);

@@ -118,9 +118,15 @@
     height: 40px;
     padding: 10px;
     cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 
     &:hover {
-      opacity: 0.6;
+      background-color: #03407e;
+      transform: scale(1.1);
+    }
+  
+    &:active {
+      transform: scale(0.9);
     }
   }
 
