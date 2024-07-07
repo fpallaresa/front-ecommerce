@@ -84,7 +84,7 @@ const Checkout = (): JSX.Element => {
   const { processPayment: processStripePayment } = useStripePayment();
   const [checkoutId, setCheckoutId] = useState(localStorage.getItem("checkoutId") ?? "");
   const navigate = useNavigate();
-  const { clearCart } = useCart();
+  const { clearCart, updateCartItems } = useCart();
 
   const handleCheckoutDataChange = (data: Partial<FormData>): void => {
     setFormData({
@@ -160,6 +160,7 @@ const Checkout = (): JSX.Element => {
         localStorage.setItem("cart", JSON.stringify([]));
         localStorage.removeItem("checkoutId");
         clearCart();
+        updateCartItems();
         navigate("/checkout/success", {
           state: {
             checkoutId: currentCheckoutId,
