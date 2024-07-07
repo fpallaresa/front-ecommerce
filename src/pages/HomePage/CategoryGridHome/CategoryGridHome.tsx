@@ -9,7 +9,7 @@ const CategoryGridHome = (): JSX.Element => {
   const API_URL_PRODUCT_BY_CATEGORY = `${process.env.REACT_APP_API_URL as string}/product/featured?limit=6`;
   const [products, setProducts] = useState<Product[]>([]);
   const [message, setMessage] = useState<string | null>(null);
-  const { updateCart } = useCart();
+  const { updateCart, updateCartItems } = useCart();
 
   useEffect(() => {
     fetchProducts();
@@ -63,6 +63,7 @@ const CategoryGridHome = (): JSX.Element => {
     localStorage.setItem("cart", JSON.stringify(cart));
     window.dispatchEvent(new Event("storage"));
     updateCart();
+    updateCartItems();
   };
 
   return (

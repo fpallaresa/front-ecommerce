@@ -1,7 +1,6 @@
 import "../Cart/Cart.scss";
 import closeBlack from "../../assets/close-black.svg";
 import dummy from "../../assets/dummy.png";
-import { CartItem } from "../../models/Product";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useCart } from "../../CartContext";
@@ -13,14 +12,12 @@ interface cartProps {
 const APP_BASE_PATH: string = "/product_images/";
 
 const Cart: React.FC<cartProps> = ({ onClose }): JSX.Element => {
-  const initialCart: CartItem[] = JSON.parse(localStorage.getItem("cart") ?? "[]");
-  const [cart, setCart] = useState<CartItem[]>(initialCart);
-  const [errorMessages, setErrorMessages] = useState<(string | null)[]>(initialCart.map(() => null));
-  const { updateCart } = useCart();
+  const { updateCart, updateCartItems, cartItems } = useCart();
+  const [errorMessages, setErrorMessages] = useState<(string | null)[]>(cartItems.map(() => null));
 
   const handleQuantityChange = (index: number, newQuantity: number): void => {
-    if (index >= 0 && index < cart.length) {
-      const newCart = [...cart];
+    if (index >= 0 && index < cartItems.length) {
+      const newCart = [...cartItems];
       const newErrorMessages = [...errorMessages];
       const product = newCart[index];
 
@@ -42,15 +39,15 @@ const Cart: React.FC<cartProps> = ({ onClose }): JSX.Element => {
         newErrorMessages[index] = null;
       }
 
-      setCart(newCart);
       setErrorMessages(newErrorMessages);
       localStorage.setItem("cart", JSON.stringify(newCart));
       updateCart();
+      updateCartItems();
     }
   };
 
   const calculateTotal = (): number => {
-    return cart.reduce((total, product) => total + product.productPrice * product.quantity, 0);
+    return cartItems.reduce((total, product) => total + product.productPrice * product.quantity, 0);
   };
 
   const totalCost = calculateTotal();
@@ -61,10 +58,10 @@ const Cart: React.FC<cartProps> = ({ onClose }): JSX.Element => {
         <img src={closeBlack} className="cart__close-icon" alt="Close" onClick={onClose} />
       </div>
       <div className="cart__container">
-        {cart.length === 0 ? (
+        {cartItems.length === 0 ? (
           <p className="cart__empty-message">No hay productos en el carrito.</p>
         ) : (
-          cart.map((product, index) => (
+          cartItems.map((product, index) => (
             <div className="cart__item" key={index}>
               <img className="cart__item-img" src={product?.image ? `${APP_BASE_PATH}${product?.image}` : dummy} alt={product?.productName} />
               <div className="cart__item-info-container">
@@ -104,7 +101,7 @@ const Cart: React.FC<cartProps> = ({ onClose }): JSX.Element => {
           ))
         )}
       </div>
-      {cart.length !== 0 ? (
+      {cartItems.length !== 0 ? (
         <Link to="/checkout" className="cart__button-total" onClick={onClose}>
           PAGAR {totalCost}€
         </Link>

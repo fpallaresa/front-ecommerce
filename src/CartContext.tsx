@@ -3,14 +3,20 @@ import { CartItem } from "./models/Product";
 
 interface CartContextType {
   cartCount: number;
+  cartItems: CartItem[];
   clearCart: () => void;
   updateCart: () => void;
+  updateCartItems: () => void;
 }
 
 // Create the context with an undefined default value
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider: React.FC<{ children: ReactNode; }> = ({ children }) => {
+  const getCart = (): CartItem[] => {
+    return JSON.parse(localStorage.getItem("cart") ?? "[]");
+  };
+
   const getCartCount = (): number => {
     const cart: CartItem[] = JSON.parse(localStorage.getItem("cart") ?? "[]");
 
@@ -22,6 +28,7 @@ export const CartProvider: React.FC<{ children: ReactNode; }> = ({ children }) =
   };
 
   const [cartCount, setCartCount] = useState(getCartCount());
+  const [cartItems, setCartItems] = useState(getCart());
 
   const updateCart = (): void => {
     const cart: CartItem[] = JSON.parse(localStorage.getItem("cart") ?? "[]");
@@ -32,11 +39,16 @@ export const CartProvider: React.FC<{ children: ReactNode; }> = ({ children }) =
     setCartCount(numberOfProducts);
   };
 
+  const updateCartItems = (): void => {
+    const cart: CartItem[] = JSON.parse(localStorage.getItem("cart") ?? "[]");
+    setCartItems(cart);
+  };
+
   const clearCart = (): void => {
     setCartCount(0);
   };
 
-  return <CartContext.Provider value={{ cartCount, clearCart, updateCart }}>{children}</CartContext.Provider>;
+  return <CartContext.Provider value={{ cartCount, cartItems, clearCart, updateCart, updateCartItems }}>{children}</CartContext.Provider>;
 };
 
 export const useCart = (): CartContextType => {
