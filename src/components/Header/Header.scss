@@ -45,6 +45,11 @@
     z-index: 1;
     cursor: pointer;
   }
+
+  &__search-container {
+    display:none;
+  }
+
   &__icon {
     width: 25px;
     cursor: pointer;
@@ -59,11 +64,15 @@
   }
 
   &__icon-container {
-    width: 55px;
+    width: 25px;
     display: flex;
     justify-content: flex-end;
     align-items: baseline;
     gap: 15px;
+
+    @media (min-width: 1024px) {
+      width: 240px;
+    }
   }
 
   &__shopping {

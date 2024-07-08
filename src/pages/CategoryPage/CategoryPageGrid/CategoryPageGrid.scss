@@ -14,14 +14,13 @@
   &__utils {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     width: 96%;
     margin: 00 auto 20px;
   }
 
   &__filters {
-    display: flex;
-    justify-content: flex-start;
+    display: none;
   }
 
   &__filters-image {
