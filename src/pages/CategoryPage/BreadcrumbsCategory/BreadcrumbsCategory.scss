@@ -1,43 +1,66 @@
 @import "../../../styles/variables.scss";
 
 .category-page {
+  &__breadcrumbs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 20px 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid $light-grey-color;
+    max-width: 1440px;
 
-    &__breadcrumbs {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 10px;
-        margin: 20px 20px;
-        padding-bottom: 20px;
-        border-bottom: 1px solid $light-grey-color;
-        max-width: 1440px;
+    @media (min-width: 1440px) {
+      margin: 20px auto;
+    }
+  }
 
-        @media (min-width: 1440px) {
-          margin: 20px auto;
-        }
+  &__breadcrumbs-second-level {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin: 20px 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid $light-grey-color;
+    max-width: 1440px;
+
+    @media (min-width: 768px) {
+      justify-content: center;
+      gap: 20px;
     }
 
-    &__breadcrumbs-title {
-        font-size: $size-m;
-        color: $primary-color;
-        text-transform: uppercase;
+    @media (min-width: 1440px) {
+      margin: 20px auto;
+    }
+  }
 
-        &--link {
-            font-weight: 300;
-        }
-    
-        @media (min-width: 1024px) {
-          font-size: $size-l;
-        }
-    
-        @media (min-width: 1440px) {
-          font-size: $size-xl;
-        }
-      }
+  &__breadcrumbs-title {
+    font-size: $size-m;
+    color: $primary-color;
+    text-transform: uppercase;
 
-      &__breadcrumbs-separator {
-        width: 75%;
-      }
+    &--link {
+      font-weight: 300;
+    }
+
+    @media (min-width: 1024px) {
+      font-size: $size-l;
+    }
+
+    @media (min-width: 1440px) {
+      font-size: $size-xl;
+    }
+  }
+
+  &__breadcrumbs-separator {
+    width: 75%;
+  }
+
+  &__breadcrumbs-subtitle {
+    font-weight: 300;
+    text-transform: uppercase;
+    font-size: $size-s;
+  }
 }
-
-
