@@ -14,6 +14,7 @@ const APP_BASE_PATH: string = "/product_images/";
 const Cart: React.FC<cartProps> = ({ onClose }): JSX.Element => {
   const { updateCart, updateCartItems, cartItems } = useCart();
   const [errorMessages, setErrorMessages] = useState<(string | null)[]>(cartItems.map(() => null));
+  const [removingItems, setRemovingItems] = useState<number[]>([]);
 
   const handleQuantityChange = (index: number, newQuantity: number): void => {
     if (index >= 0 && index < cartItems.length) {
@@ -22,8 +23,16 @@ const Cart: React.FC<cartProps> = ({ onClose }): JSX.Element => {
       const product = newCart[index];
 
       if (newQuantity < 1) {
-        newCart.splice(index, 1);
-        newErrorMessages.splice(index, 1);
+        setRemovingItems((prev) => [...prev, index]);
+        setTimeout(() => {
+          newCart.splice(index, 1);
+          newErrorMessages.splice(index, 1);
+          setRemovingItems((prev) => prev.filter((i) => i !== index));
+          setErrorMessages(newErrorMessages);
+          localStorage.setItem("cart", JSON.stringify(newCart));
+          updateCart();
+          updateCartItems();
+        }, 300);
       } else if (newQuantity > product.stock) {
         newErrorMessages[index] = "No hay más stock disponible de este producto";
         setErrorMessages(newErrorMessages);
@@ -33,16 +42,14 @@ const Cart: React.FC<cartProps> = ({ onClose }): JSX.Element => {
           updatedErrorMessages[index] = null;
           setErrorMessages(updatedErrorMessages);
         }, 3000);
-        return;
       } else {
         product.quantity = newQuantity;
         newErrorMessages[index] = null;
+        setErrorMessages(newErrorMessages);
+        localStorage.setItem("cart", JSON.stringify(newCart));
+        updateCart();
+        updateCartItems();
       }
-
-      setErrorMessages(newErrorMessages);
-      localStorage.setItem("cart", JSON.stringify(newCart));
-      updateCart();
-      updateCartItems();
     }
   };
 
@@ -62,7 +69,7 @@ const Cart: React.FC<cartProps> = ({ onClose }): JSX.Element => {
           <p className="cart__empty-message">No hay productos en el carrito.</p>
         ) : (
           cartItems.map((product, index) => (
-            <div className="cart__item" key={index}>
+            <div className={`cart__item ${removingItems.includes(index) ? "cart__item--removing" : ""}`} key={index}>
               <img className="cart__item-img" src={product?.image ? `${APP_BASE_PATH}${product?.image}` : dummy} alt={product?.productName} />
               <div className="cart__item-info-container">
                 <p className="cart__item-name">{product?.productName}</p>

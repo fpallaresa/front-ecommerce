@@ -1,5 +1,13 @@
 @import "../../styles/variables.scss";
 
+@keyframes fadeOut{
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
 .cart {
   display: flex;
   flex-direction: column;
@@ -53,6 +61,10 @@
     padding-bottom: 20px;
     margin-bottom: 10px;
     width: 100%;
+    &--removing{
+      animation: fadeOut 0.3s forwards;
+
+    }
   }
 
   &__item-img {
