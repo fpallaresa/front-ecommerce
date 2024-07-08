@@ -55,10 +55,10 @@ const BreadcrumbsCategory = ({ categoryData }: BreadcrumbsCategoryProps): JSX.El
           <div className="category-page__breadcrumbs">
             <h1 className="category-page__breadcrumbs-title">{category?.name?.es}</h1>
           </div>
-          <div className="category-page__breadcrumbs">
+          <div className="category-page__breadcrumbs-second-level">
             {childrenCategories?.map((category, index) => (
               <NavLink key={index} to={`/${category.name.es.toLowerCase()}`}>
-                <h1 className="category-page__breadcrumbs-subtitle">{category?.name?.es}</h1>
+                <h2 className="category-page__breadcrumbs-subtitle">{category?.name?.es}</h2>
               </NavLink>
             ))}
           </div>
