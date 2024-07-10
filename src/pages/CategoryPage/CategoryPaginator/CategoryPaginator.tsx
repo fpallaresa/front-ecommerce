@@ -7,20 +7,29 @@ interface PaginatorProps {
 }
 
 const CategoryPaginator = ({ currentPage, totalPages, onPageChange }: PaginatorProps): JSX.Element => {
+  const scrollToTop = (): void => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth" // Añade un desplazamiento suave
+    });
+  };
   const handlePrevious = (): void => {
     if (currentPage > 1) {
       onPageChange(currentPage - 1);
+      scrollToTop();
     }
   };
 
   const handleNext = (): void => {
     if (currentPage < totalPages) {
       onPageChange(currentPage + 1);
+      scrollToTop();
     }
   };
 
   const handlePageClick = (page: number): void => {
     onPageChange(page);
+    scrollToTop();
   };
 
   const renderPageNumbers = (): JSX.Element[] => {
@@ -31,6 +40,7 @@ const CategoryPaginator = ({ currentPage, totalPages, onPageChange }: PaginatorP
           {i}
         </button>
       );
+      scrollToTop();
     }
     return pages;
   };
